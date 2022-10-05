@@ -1,0 +1,1 @@
+# Universal Scripture SQL Schema

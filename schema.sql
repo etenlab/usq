@@ -1,6 +1,4 @@
-
-
--- USQ - Universal Scripture SQL
+-- USQ - Universal Scripture SQL Schema
 
 create table usq_schemas (
   schema_id bigserial primary key,

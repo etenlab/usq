@@ -23,3 +23,6 @@
 
 1. As an MTT, I want to view all edits to a document over time and be able to approve, deny, and discuss each edit before an edit becomes finalized.
 
+## Run scripts
+
+npx ts-node index.ts

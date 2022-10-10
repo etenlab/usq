@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@types/pg": "^8.6.5",
-    "pg": "^8.8.0"
+    "pg": "^8.8.0",
+    "usfm-grammar": "^2.3.0"
   }
 }

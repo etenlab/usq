@@ -6,8 +6,8 @@ create table usq_schemas (
   meta jsonb
 );
 
-create table usq_bibles (
-  bible_id bigserial primary key,
+create table usq_collections (
+  collection_id bigserial primary key,
   language_index varchar(64) not null,
   language_id bigserial not null,
   name varchar(256) not null,
@@ -23,10 +23,10 @@ create table usq_book_index (
 
 create table usq_books (
   book_id bigserial primary key,
-  bible_id bigint not null references usq_bibles(bible_id),
+  collection_id bigint not null references usq_collections(collection_id),
   book_index_id bigint not null references usq_book_index(book_index_id),
   meta jsonb,
-  unique (bible_id, book_index_id)
+  unique (collection_id, book_index_id)
 );
 
 create table usq_chapters (
@@ -74,7 +74,7 @@ create type reference_type as enum (
   'VERSE',
   'CHAPTER',
   'BOOK',
-  'BIBLE'
+  'collection'
 );
 
 create table usq_references (

@@ -2,7 +2,7 @@ create or replace procedure load_data()
 language plpgsql
 as $$
 declare
-  v_bible_1_id bigint;
+  v_collection_1_id bigint;
   v_book_1_index_id bigint;
   v_book_1_id bigint;
   v_chapter_1_id bigint;
@@ -16,7 +16,7 @@ declare
   v_word_ref_1_id_3 bigint;
   v_word_ref_1_id_4 bigint;
 
-  v_bible_2_id bigint;
+  v_collection_2_id bigint;
   v_book_2_index_id bigint;
   v_book_2_id bigint;
   v_chapter_2_id bigint;
@@ -31,14 +31,14 @@ declare
   v_word_ref_2_id_4 bigint;
 begin
   -- document 1
-  insert into usq_bibles(language_index, language_id, name)
+  insert into usq_collections(language_index, language_id, name)
   values ('_fake_index_1', 1, 'us_ENG')
   on conflict do nothing
-  returning bible_id
-  into v_bible_1_id;
+  returning collection_id
+  into v_collection_1_id;
 
-  if v_bible_1_id is null then
-    raise notice 'v_bible_1_id is null %', now();
+  if v_collection_1_id is null then
+    raise notice 'v_collection_1_id is null %', now();
     return;
   end if;
 
@@ -47,8 +47,8 @@ begin
   returning book_index_id
   into v_book_1_index_id;
 
-  insert into usq_books(bible_id, book_index_id)
-  values (v_bible_1_id, v_book_1_index_id)
+  insert into usq_books(collection_id, book_index_id)
+  values (v_collection_1_id, v_book_1_index_id)
   returning book_id
   into v_book_1_id;
 
@@ -103,19 +103,19 @@ begin
   into v_word_ref_1_id_4;
 
   -- document 2
-  insert into usq_bibles(language_index, language_id, name)
+  insert into usq_collections(language_index, language_id, name)
   values ('_fake_index_2', 1, '_fake twig 1')
   on conflict do nothing
-  returning bible_id
-  into v_bible_2_id;
+  returning collection_id
+  into v_collection_2_id;
 
-  if v_bible_2_id is null then
-    raise notice 'v_bible_2_id is null %', now();
+  if v_collection_2_id is null then
+    raise notice 'v_collection_2_id is null %', now();
     return;
   end if;
 
-  insert into usq_books(bible_id, book_index_id)
-  values (v_bible_2_id, v_book_1_index_id) -- use same book index
+  insert into usq_books(collection_id, book_index_id)
+  values (v_collection_2_id, v_book_1_index_id) -- use same book index
   returning book_id
   into v_book_2_id;
 

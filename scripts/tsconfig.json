@@ -1,12 +1,16 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "target": "ES2022",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist"
-  },
-  "lib": ["es2015"]
+    "compilerOptions": {
+        "strict": true,
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "target": "ES2022",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist"
+    },
+    "lib": ["es2015"],
+    "include": [
+        "types/*.d.ts",
+        "src/*.ts"
+    ]
 }

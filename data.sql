@@ -232,4 +232,6 @@ begin
     v_word_index_2_id_1
   );
 
+  refresh materialized view usq_word_to_word_alignment;
+
 end; $$;

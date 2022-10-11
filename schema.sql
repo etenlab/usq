@@ -95,6 +95,8 @@ create table usq_references (
 -- usq_[source]_to_[target]_[relationship_type]
 
 -- alignment
+
+-- source and target tables are usq_word_references
 create materialized view usq_word_to_word_alignment as
   select reference_id, source_id, target_id, meta
   from usq_references

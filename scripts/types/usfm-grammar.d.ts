@@ -27,13 +27,13 @@ declare module 'usfm-grammar' {
     bookCode: BookCode;
     description?: string;
     meta?: OtherElement[];
-  };
+  }
 
   export interface IVerse {
     verseNumber: string;
     verseText: string;
     contents?: OtherElement[];
-  };
+  }
 
   export type ChapterContent =
     IVerse | OtherElement;
@@ -41,7 +41,7 @@ declare module 'usfm-grammar' {
   export interface IChapter {
     chapterNumber: number;
     contents: ChapterContent[];
-  };
+  }
 
   export interface IUSFMParsedObject {
     book: IBook;
@@ -49,10 +49,10 @@ declare module 'usfm-grammar' {
     _messages?: {
       _warnings: string[];
     };
-  };
+  }
 
   export class USFMParser {
     constructor(content: string);
     toJSON(): IUSFMParsedObject;
-  };
+  }
 }

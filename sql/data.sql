@@ -29,6 +29,9 @@ declare
   v_word_ref_2_id_2 bigint;
   v_word_ref_2_id_3 bigint;
   v_word_ref_2_id_4 bigint;
+
+  v_strongs_word_index_id_1 bigint;
+  v_strongs_word_index_id_2 bigint;
 begin
   -- document 1
   insert into usq_collections(language_index, language_id, name)
@@ -182,9 +185,9 @@ begin
   values (
     'ALIGNMENT',
     'WORD',
-    v_word_index_1_id_1,
+    v_word_ref_1_id_1,
     'WORD',
-    v_word_index_2_id_4
+    v_word_ref_2_id_4
   );
 
   insert into usq_references(
@@ -197,9 +200,9 @@ begin
   values (
     'ALIGNMENT',
     'WORD',
-    v_word_index_1_id_2,
+    v_word_ref_1_id_2,
     'WORD',
-    v_word_index_2_id_3
+    v_word_ref_2_id_3
   );
 
   insert into usq_references(
@@ -212,9 +215,9 @@ begin
   values (
     'ALIGNMENT',
     'WORD',
-    v_word_index_1_id_3,
+    v_word_ref_1_id_3,
     'WORD',
-    v_word_index_2_id_2
+    v_word_ref_2_id_2
   );
 
   insert into usq_references(
@@ -227,11 +230,115 @@ begin
   values (
     'ALIGNMENT',
     'WORD',
-    v_word_index_1_id_4,
+    v_word_ref_1_id_4,
     'WORD',
-    v_word_index_2_id_1
+    v_word_ref_2_id_1
+  );
+
+  -- strongs
+  insert into usq_word_index (language_index, language_id, word, meta)
+  values (
+    '_fake_index_1',
+    '2', -- pretend biblical hebrew language id
+    'אֱלֹהִים',
+    $asdf$
+    {
+      "H430": {
+        "lemma": "אֱלֹהִים",
+        "xlit": "ʼĕlôhîym",
+        "pron": "el-o-heem'",
+        "derivation": "plural of H433 (אֱלוֹהַּ);",
+        "strongs_def": "gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative",
+        "kjv_def": "angels, [idiom] exceeding, God (gods) (-dess, -ly), [idiom] (very) great, judges, [idiom] mighty."
+      }
+    }
+    $asdf$
+  )
+  returning word_index_id
+  into v_strongs_word_index_id_1;
+
+  insert into usq_word_index (language_index, language_id, word, meta)
+  values (
+    '_fake_index_1',
+    '2', -- pretend biblical hebrew language id
+    'רֵאשִׁית',
+    $asdf$
+  {
+    "H7225": {
+      "lemma": "רֵאשִׁית",
+      "xlit": "rêʼshîyth",
+      "pron": "ray-sheeth'",
+      "derivation": "from the same as H7218 (רֹאשׁ);",
+      "strongs_def": "the first, in place, time, order or rank (specifically, a firstfruit)",
+      "kjv_def": "beginning, chief(-est), first(-fruits, part, time), principal thing."
+    }
+  }
+    $asdf$
+  )
+  returning word_index_id
+  into v_strongs_word_index_id_2;
+
+  insert into usq_references(
+    ref_type,
+    source_type,
+    source_id,
+    target_type,
+    target_id
+  )
+  values (
+    'RESOURCE',
+    'WORD',
+    v_word_ref_1_id_1, -- reference to word_index 'In'
+    'WORD_INDEX',
+    v_strongs_word_index_id_2 -- reference to hebrew word רֵאשִׁית
+  );
+
+  insert into usq_references(
+    ref_type,
+    source_type,
+    source_id,
+    target_type,
+    target_id
+  )
+  values (
+    'RESOURCE',
+    'WORD',
+    v_word_ref_1_id_2, -- reference to word_index 'the'
+    'WORD_INDEX',
+    v_strongs_word_index_id_2 -- reference to hebrew word רֵאשִׁית
+  );
+
+  insert into usq_references(
+    ref_type,
+    source_type,
+    source_id,
+    target_type,
+    target_id
+  )
+  values (
+    'RESOURCE',
+    'WORD',
+    v_word_ref_1_id_3, -- reference to word_index 'beginning'
+    'WORD_INDEX',
+    v_strongs_word_index_id_2 -- reference to hebrew word רֵאשִׁית
+  );
+
+  insert into usq_references(
+    ref_type,
+    source_type,
+    source_id,
+    target_type,
+    target_id
+  )
+  values (
+    'RESOURCE',
+    'WORD',
+    v_word_ref_1_id_4, -- reference to word_index 'God'
+    'WORD_INDEX',
+    v_strongs_word_index_id_1 -- reference to hebrew word אֱלֹהִים
   );
 
   refresh materialized view usq_word_to_word_alignment;
+  refresh materialized view usq_word_to_word_index_resource;
 
 end; $$;

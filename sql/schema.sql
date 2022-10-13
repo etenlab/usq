@@ -71,6 +71,7 @@ create type relationship_type as enum (
 
 create type reference_type as enum (
   'WORD',
+  'WORD_INDEX',
   'VERSE',
   'CHAPTER',
   'BOOK',
@@ -96,7 +97,8 @@ create table usq_references (
 
 -- alignment
 
--- source and target tables are usq_word_references
+-- source: usq_word_references
+-- target: usq_word_references
 create materialized view usq_word_to_word_alignment as
   select reference_id, source_id, target_id, meta
   from usq_references
@@ -107,3 +109,16 @@ create materialized view usq_word_to_word_alignment as
 with no data;
 
 refresh materialized view usq_word_to_word_alignment;
+
+-- source: usq_word_references
+-- target: usq_word_index
+create materialized view usq_word_to_word_index_resource as
+  select reference_id, source_id, target_id, meta
+  from usq_references
+  where 
+    ref_type = 'RESOURCE' and
+    source_type = 'WORD' and
+    target_type = 'WORD_INDEX'
+with no data;
+
+refresh materialized view usq_word_to_word_index_resource;

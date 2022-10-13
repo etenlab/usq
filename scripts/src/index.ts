@@ -3,10 +3,23 @@
 import { readFile } from 'fs/promises';
 import { USFMParser } from 'usfm-grammar';
 
+import { getInsertQuery, getInsertQueryParams } from './db';
+
 async function parseFile(path: string) {
+    const defaultCollection = {
+        language_index: "_fake_index_1",
+        language_id: 1,
+        collection_name: "us_ENG"
+    }
+
     const content = await readFile(path, 'utf8');
     const parser = new USFMParser(content);
-    return parser.toJSON();
+    const json = parser.toJSON();
+
+    const queryParams = getInsertQueryParams(defaultCollection, json);
+    const query = getInsertQuery(queryParams);
+
+    return query;
 }
 
 async function main() {

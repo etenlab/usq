@@ -75,7 +75,7 @@ create type reference_type as enum (
   'VERSE',
   'CHAPTER',
   'BOOK',
-  'collection'
+  'COLLECTION'
 );
 
 create table usq_references (

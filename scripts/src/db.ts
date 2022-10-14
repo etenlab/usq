@@ -1,64 +1,65 @@
-import { IUSFMParsedObject } from 'usfm-grammar';
-
-interface IInsertQueryParamters {
-  language_index: string;
-  language_id: number;
-  collection_name: string;
-  book_name: string;
-}
+import { Client, Pool } from 'pg';
+import { IUSFMParsedObject, IVerse, ChapterContent } from 'usfm-grammar';
+import { INSERT_QUERY_TEMPLATE } from './query.template';
 
 interface ICollectionParameters {
-  language_index: string;
-  language_id: number;
-  collection_name: string
+    languageIndex: string;
+    languageId: number;
+    collectionName: string;
+}
+interface IInsertParameters extends ICollectionParameters {
+  bookName: string;
+  chapterNumber: number;
+  verseNumber: number;
+  word: string;
+  wordNumber: number;
 }
 
-const INSERT_QUERY_TEMPLATE = `
-WITH collection AS (
-     SELECT collection_id
-     FROM usq_collections
-     WHERE language_index = $1
-       AND language_id    = $2
-       AND name           = $3
-),
-book_index AS (
-     INSERT INTO usq_book_index(name)
-     VALUES ($4)
-     ON CONFLICT (name) DO UPDATE
-        SET name = excluded.name
-     RETURNING book_index_id
-)
-INSERT INTO usq_books(collection_id, book_index_id)
-SELECT collection.collection_id, book_index.book_index_id
-FROM collection
-CROSS JOIN book_index;
-`;
+export function getInsertParameters(collection: ICollectionParameters, data: IUSFMParsedObject) {
+    const { languageIndex, languageId, collectionName } = collection;
+    const bookName = data.book.bookCode;
 
-function getInsertQuery(params: IInsertQueryParamters) {
-  return {
+    return data.chapters.flatMap(chapter => {
+        const chapterNumber = chapter.chapterNumber;
+
+        return chapter.contents
+            .filter((content: ChapterContent) => {
+                return content != null
+                    && typeof content === 'object'
+                    && 'verseNumber' in content
+            })
+            .flatMap((content: ChapterContent) => {
+                const verse = content as IVerse;
+                const verseNumber = parseInt(verse.verseNumber);
+                const words = verse.verseText.split(/\s+/);
+                return words.map((word, wordNumber) => ({
+                    languageIndex,
+                    languageId,
+                    collectionName,
+                    bookName,
+                    chapterNumber,
+                    verseNumber,
+                    word,
+                    wordNumber
+                }));
+            });
+    });
+}
+
+export async function insertWord(client: Client | Pool, params: IInsertParameters) {
+  const query = {
     text: INSERT_QUERY_TEMPLATE,
     values: [
-      params.language_index,
-      params.language_id,
-      params.collection_name,
-      params.book_name
+      params.languageIndex,
+      params.languageId,
+      params.collectionName,
+      params.bookName,
+      params.chapterNumber,
+      params.verseNumber,
+      params.word,
+      params.wordNumber
     ]
-  }
-}
-
-function getInsertQueryParams(
-    collection: ICollectionParameters,
-    input: IUSFMParsedObject
-): IInsertQueryParamters {
-
-  return {
-      ...collection,
-      book_name: input.book.bookCode
   };
 
+  return await client.query(query);
 }
-
-export {
-    getInsertQuery,
-    getInsertQueryParams
-};

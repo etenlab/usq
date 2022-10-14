@@ -25,4 +25,5 @@
 
 ## Run scripts
 
+npx ts-node load-strongs.ts
 npx ts-node index.ts

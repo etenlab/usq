@@ -1,0 +1,332 @@
+<DBLMetadata version="2.2.1" id="5e29945cf530b0f6" revision="1">
+    <identification>
+      <name>The Greek New Testament According to Family 35, Third Edition</name>
+      <nameLocal>The Greek New Testament According to Family 35</nameLocal>
+      <description>Greek, Ancient: The Greek New Testament According to Family 35 (New Testament)</description>
+      <descriptionLocal>Η Ελληνική Καινή Διαθήκη Σύμφωνα με την Οικογένεια 35</descriptionLocal>
+      <abbreviation>grcF35</abbreviation>
+      <abbreviationLocal>F35</abbreviationLocal>
+      <scope>New Testament</scope>
+      <dateCompleted>2015-01-01</dateCompleted>
+      <bundleProducer>Paratext/9.0.103.1</bundleProducer>
+      <systemId type="paratext">
+        <id>5e29945cf530b0f6936af1443c5527d31d8fcb0d</id>
+        <csetId>fc3935a4aeacfd06186fcabead6907f13ced31b9</csetId>
+        <name>grcF35</name>
+        <fullName>The Greek New Testament According to Family 35, Third Edition</fullName>
+      </systemId>
+      <systemId type="ptreg">
+        <id>jWysjN2tR2eSfv3nh</id>
+      </systemId>
+    </identification>
+    <type>
+      <medium>text</medium>
+      <isConfidential>false</isConfidential>
+      <hasCharacters>true</hasCharacters>
+      <isTranslation>true</isTranslation>
+      <isExpression>true</isExpression>
+      <translationType>New</translationType>
+      <audience>Common</audience>
+      <projectType>Standard</projectType>
+    </type>
+    <relationships/>
+    <agencies>
+      <rightsHolder>
+        <abbr>eBible.org</abbr>
+        <url>https://eBible.org</url>
+        <nameLocal>eBible.org</nameLocal>
+        <uid>545d2cb0ae307afa44b390fc</uid>
+        <name>eBible.org</name>
+      </rightsHolder>
+      <rightsAdmin>
+        <url>https://eBible.org</url>
+        <uid>545d2cb0ae307afa44b390fc</uid>
+        <name>eBible.org</name>
+      </rightsAdmin>
+      <contributor>
+        <content>true</content>
+        <publication>true</publication>
+        <management>true</management>
+        <finance>true</finance>
+        <qa>true</qa>
+        <uid>545d2cb0ae307afa44b390fc</uid>
+        <name>eBible.org</name>
+      </contributor>
+    </agencies>
+    <language>
+      <iso>grc</iso>
+      <name>Greek, Ancient</name>
+      <nameLocal>Ελληνιστική</nameLocal>
+      <script>Greek</script>
+      <scriptCode>Grek</scriptCode>
+      <scriptDirection>LTR</scriptDirection>
+      <ldml>grc</ldml>
+      <numerals>Arabic</numerals>
+    </language>
+    <countries>
+      <country>
+        <iso>ZZ</iso>
+        <name>Unspecific</name>
+      </country>
+    </countries>
+    <format>
+      <usxVersion>3.0</usxVersion>
+      <versedParagraphs>false</versedParagraphs>
+    </format>
+    <names>
+      <name id="book-mat">
+        <abbr>ΚΑΤΑ ΜΑΤΘΑΙΟΝ</abbr>
+        <short>ΚΑΤΑ ΜΑΤΘΑΙΟΝ</short>
+        <long>ΕΥΑΓΓΕΛΙΟΝ ΚΑΤΑ ΜΑΤΘΑΙΟΝ</long>
+      </name>
+      <name id="book-mrk">
+        <abbr>ΚΑΤΑ ΜΑΡΚΟΝ</abbr>
+        <short>ΚΑΤΑ ΜΑΡΚΟΝ</short>
+        <long>ΕΥΑΓΓΕΛΙΟΝ ΚΑΤΑ ΜΑΡΚΟΝ</long>
+      </name>
+      <name id="book-luk">
+        <abbr>ΚΑΤΑ ΛΟΥΚΑΝ</abbr>
+        <short>ΚΑΤΑ ΛΟΥΚΑΝ</short>
+        <long>ΕΥΑΓΓΕΛΙΟΝ ΚΑΤΑ ΛΟΥΚΑΝ</long>
+      </name>
+      <name id="book-jhn">
+        <abbr>ΚΑΤΑ ΙΩΑΝΝΗΝ</abbr>
+        <short>ΚΑΤΑ ΙΩΑΝΝΗΝ</short>
+        <long>ΕΥΑΓΓΕΛΙΟΝ ΚΑΤΑ ΙΩΑΝΝΗΝ</long>
+      </name>
+      <name id="book-act">
+        <abbr>ΠΡΑΞΕΙΣ ΑΠΟΣΤΟΛΩΝ</abbr>
+        <short>Acts</short>
+        <long>ΠΡΑΞΕΙΣ ΑΠΟΣΤΟΛΩΝ</long>
+      </name>
+      <name id="book-rom">
+        <abbr>ΠΡΟΣ ΡΩΜΑΙΟΥΣ</abbr>
+        <short>ΠΡΟΣ ΡΩΜΑΙΟΥΣ</short>
+        <long>ΠΡΟΣ ΡΩΜΑΙΟΥΣ</long>
+      </name>
+      <name id="book-1co">
+        <abbr>ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Α΄</abbr>
+        <short>ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Α΄</short>
+        <long>ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Α΄</long>
+      </name>
+      <name id="book-2co">
+        <abbr>ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Β΄</abbr>
+        <short>ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Β΄</short>
+        <long>ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Β΄</long>
+      </name>
+      <name id="book-gal">
+        <abbr>ΠΡΟΣ ΓΑΛΑΤΑΣ</abbr>
+        <short>ΠΡΟΣ ΓΑΛΑΤΑΣ</short>
+        <long>ΠΡΟΣ ΓΑΛΑΤΑΣ</long>
+      </name>
+      <name id="book-eph">
+        <abbr>ΠΡΟΣ ΕΦΕΣΙΟΥΣ</abbr>
+        <short>ΠΡΟΣ ΕΦΕΣΙΟΥΣ</short>
+        <long>ΠΡΟΣ ΕΦΕΣΙΟΥΣ</long>
+      </name>
+      <name id="book-php">
+        <abbr>ΠΡΟΣ ΦΙΛΙΠΠΗΣΙΟΥΣ</abbr>
+        <short>ΠΡΟΣ ΦΙΛΙΠΠΗΣΙΟΥΣ</short>
+        <long>ΠΡΟΣ ΦΙΛΙΠΠΗΣΙΟΥΣ</long>
+      </name>
+      <name id="book-col">
+        <abbr>ΠΡΟΣ ΚΟΛΟΣΣΑΕΙΣ</abbr>
+        <short>ΠΡΟΣ ΚΟΛΟΣΣΑΕΙΣ</short>
+        <long>ΠΡΟΣ ΚΟΛΟΣΣΑΕΙΣ</long>
+      </name>
+      <name id="book-1th">
+        <abbr>ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Α΄</abbr>
+        <short>ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Α΄</short>
+        <long>ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Α΄</long>
+      </name>
+      <name id="book-2th">
+        <abbr>ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Β΄</abbr>
+        <short>ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Β΄</short>
+        <long>ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Β΄</long>
+      </name>
+      <name id="book-1ti">
+        <abbr>ΠΡΟΣ ΤΙΜΟΘΕΟΝ Α΄</abbr>
+        <short>ΠΡΟΣ ΤΙΜΟΘΕΟΝ Α΄</short>
+        <long>ΠΡΟΣ ΤΙΜΟΘΕΟΝ Α΄</long>
+      </name>
+      <name id="book-2ti">
+        <abbr>ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β΄</abbr>
+        <short>ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β΄</short>
+        <long>ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β΄</long>
+      </name>
+      <name id="book-tit">
+        <abbr>ΠΡΟΣ ΤΙΤΟΝ</abbr>
+        <short>ΠΡΟΣ ΤΙΤΟΝ</short>
+        <long>ΠΡΟΣ ΤΙΤΟΝ</long>
+      </name>
+      <name id="book-phm">
+        <abbr>ΠΡΟΣ ΦΙΛΗΜΟΝΑ</abbr>
+        <short>ΠΡΟΣ ΦΙΛΗΜΟΝΑ</short>
+        <long>ΠΡΟΣ ΦΙΛΗΜΟΝΑ</long>
+      </name>
+      <name id="book-heb">
+        <abbr>ΠΡΟΣ ΕΒΡΑΙΟΥΣ</abbr>
+        <short>ΠΡΟΣ ΕΒΡΑΙΟΥΣ</short>
+        <long>ΠΡΟΣ ΕΒΡΑΙΟΥΣ</long>
+      </name>
+      <name id="book-jas">
+        <abbr>ΙΑΚΩΒΟΥ ΕΠΙΣΤΟΛΗ</abbr>
+        <short>ΙΑΚΩΒΟΥ ΕΠΙΣΤΟΛΗ</short>
+        <long>ΙΑΚΩΒΟΥ ΕΠΙΣΤΟΛΗ</long>
+      </name>
+      <name id="book-1pe">
+        <abbr>ΠΕΤΡΟΥ Α΄</abbr>
+        <short>ΠΕΤΡΟΥ Α΄</short>
+        <long>ΠΕΤΡΟΥ Α΄</long>
+      </name>
+      <name id="book-2pe">
+        <abbr>ΠΕΤΡΟΥ Β΄</abbr>
+        <short>ΠΕΤΡΟΥ Β΄</short>
+        <long>ΠΕΤΡΟΥ Β΄</long>
+      </name>
+      <name id="book-1jn">
+        <abbr>ΙΩΑΝΝΟΥ Α΄</abbr>
+        <short>ΙΩΑΝΝΟΥ Α΄</short>
+        <long>ΙΩΑΝΝΟΥ Α΄</long>
+      </name>
+      <name id="book-2jn">
+        <abbr>ΙΩΑΝΝΟΥ Β΄</abbr>
+        <short>ΙΩΑΝΝΟΥ Β΄</short>
+        <long>ΙΩΑΝΝΟΥ Β΄</long>
+      </name>
+      <name id="book-3jn">
+        <abbr>ΙΩΑΝΝΟΥ Γ΄</abbr>
+        <short>ΙΩΑΝΝΟΥ Γ΄</short>
+        <long>ΙΩΑΝΝΟΥ Γ΄</long>
+      </name>
+      <name id="book-jud">
+        <abbr>ΙΟΥΔΑ</abbr>
+        <short>ΙΟΥΔΑ</short>
+        <long>ΙΟΥΔΑ</long>
+      </name>
+      <name id="book-rev">
+        <abbr>ΑΠΟΚΑΛΥΨΙΣ</abbr>
+        <short>ΑΠΟΚΑΛΥΨΙΣ</short>
+        <long>ΑΠΟΚΑΛΥΨΙΣ</long>
+      </name>
+    </names>
+    <manifest>
+      <resource checksum="9398fb08fbc8ca3154401ad394c261e1" mimeType="application/xml" size="230395" uri="release/USX_1/1CO.usx"/>
+      <resource checksum="c5dcae54f022f9b4855761290739755c" mimeType="application/xml" size="63364" uri="release/USX_1/1JN.usx"/>
+      <resource checksum="7a38f481708fb45f8f84a627f196f9a2" mimeType="application/xml" size="78045" uri="release/USX_1/1PE.usx"/>
+      <resource checksum="954ca44c4197ae502d9ca1ff42427747" mimeType="application/xml" size="46809" uri="release/USX_1/1TH.usx"/>
+      <resource checksum="32d0177d6a08623e9df73d6bab69d989" mimeType="application/xml" size="57207" uri="release/USX_1/1TI.usx"/>
+      <resource checksum="04523ef89f56df144de78e133c9b0d47" mimeType="application/xml" size="143120" uri="release/USX_1/2CO.usx"/>
+      <resource checksum="3cd91ebb76cfdd091c66cb702596578b" mimeType="application/xml" size="11627" uri="release/USX_1/2JN.usx"/>
+      <resource checksum="1c79f4296395c48cfef154bddeed6044" mimeType="application/xml" size="46528" uri="release/USX_1/2PE.usx"/>
+      <resource checksum="4d35e28316c772b89d0198e58fe6a0aa" mimeType="application/xml" size="26812" uri="release/USX_1/2TH.usx"/>
+      <resource checksum="3cdefca8aabdb533b9b683801be36e48" mimeType="application/xml" size="40242" uri="release/USX_1/2TI.usx"/>
+      <resource checksum="704cc34138f75c8ca35f7182a02805c8" mimeType="application/xml" size="9065" uri="release/USX_1/3JN.usx"/>
+      <resource checksum="1bed540e706b7dfe21b8ae787d4a8dfb" mimeType="application/xml" size="692897" uri="release/USX_1/ACT.usx"/>
+      <resource checksum="16956cd327871aeb2b0077a9812fbf6d" mimeType="application/xml" size="57163" uri="release/USX_1/COL.usx"/>
+      <resource checksum="d20fb10fd452cf614872ab02074bfc3a" mimeType="application/xml" size="75567" uri="release/USX_1/EPH.usx"/>
+      <resource checksum="b2bc429ab59d9c5ca5ad9cde7f35d46e" mimeType="application/xml" size="81244" uri="release/USX_1/GAL.usx"/>
+      <resource checksum="bedba979f9e0dc856b7d19fbe1019ee2" mimeType="application/xml" size="152416" uri="release/USX_1/HEB.usx"/>
+      <resource checksum="4ec22f9f2cdf8359ff64ef6ef6198a43" mimeType="application/xml" size="68644" uri="release/USX_1/JAS.usx"/>
+      <resource checksum="0d0296e92c5318fbba381c07ed9a255b" mimeType="application/xml" size="524187" uri="release/USX_1/JHN.usx"/>
+      <resource checksum="f657cdf0c2bb96402b90e420cc5e3353" mimeType="application/xml" size="25014" uri="release/USX_1/JUD.usx"/>
+      <resource checksum="85c62343b2dcfe39989937791d009ba5" mimeType="application/xml" size="743971" uri="release/USX_1/LUK.usx"/>
+      <resource checksum="8c2775830a7d9f984c1b83d54c1ccb4e" mimeType="application/xml" size="551193" uri="release/USX_1/MAT.usx"/>
+      <resource checksum="5ba34ab40b59f115282ee649c4903c15" mimeType="application/xml" size="479912" uri="release/USX_1/MRK.usx"/>
+      <resource checksum="253c794b6c31039c9c15466ea042de7e" mimeType="application/xml" size="14180" uri="release/USX_1/PHM.usx"/>
+      <resource checksum="f88ebfbc9255a645ec7175b42aab0fd0" mimeType="application/xml" size="53168" uri="release/USX_1/PHP.usx"/>
+      <resource checksum="7b88fd5e9b0189896941820154d8b628" mimeType="application/xml" size="504698" uri="release/USX_1/REV.usx"/>
+      <resource checksum="6aeb30cb9095ea99a930d821a13f2cf9" mimeType="application/xml" size="203997" uri="release/USX_1/ROM.usx"/>
+      <resource checksum="1f6609058f9e5897a660f9f8f2b1ee97" mimeType="application/xml" size="22849" uri="release/USX_1/TIT.usx"/>
+      <resource checksum="7d3a4d829fb1e56b3a96621f100dd129" mimeType="application/xml" size="4511" uri="release/grc.ldml"/>
+      <resource checksum="715b9a2c3fac68961ca8a7f7e7d06f83" mimeType="application/xml" size="92714" uri="release/styles.xml"/>
+      <resource checksum="0e5c195b64c80511fc10fd70974731c6" mimeType="text/plain" size="15417" uri="release/versification.vrs"/>
+      </manifest>
+    <publications>
+      <publication id="p1" default="true">
+        <name>The Greek New Testament According to Family 35</name>
+        <nameLocal>Η Ελληνική Καινή Διαθήκη Σύμφωνα με την Οικογένεια 35</nameLocal>
+        <description>common</description>
+        <descriptionLocal>κοινός</descriptionLocal>
+        <abbreviation>grcF35</abbreviation>
+        <abbreviationLocal>F35</abbreviationLocal>
+        <canonicalContent>
+          <book code="1CO"/>
+          <book code="1JN"/>
+          <book code="1PE"/>
+          <book code="1TH"/>
+          <book code="1TI"/>
+          <book code="2CO"/>
+          <book code="2JN"/>
+          <book code="2PE"/>
+          <book code="2TH"/>
+          <book code="2TI"/>
+          <book code="3JN"/>
+          <book code="ACT"/>
+          <book code="COL"/>
+          <book code="EPH"/>
+          <book code="GAL"/>
+          <book code="HEB"/>
+          <book code="JAS"/>
+          <book code="JHN"/>
+          <book code="JUD"/>
+          <book code="LUK"/>
+          <book code="MAT"/>
+          <book code="MRK"/>
+          <book code="PHM"/>
+          <book code="PHP"/>
+          <book code="REV"/>
+          <book code="ROM"/>
+          <book code="TIT"/>
+        </canonicalContent>
+        <structure>
+          <content name="book-mat" src="release/USX_1/MAT.usx" role="MAT"/>
+          <content name="book-mrk" src="release/USX_1/MRK.usx" role="MRK"/>
+          <content name="book-luk" src="release/USX_1/LUK.usx" role="LUK"/>
+          <content name="book-jhn" src="release/USX_1/JHN.usx" role="JHN"/>
+          <content name="book-act" src="release/USX_1/ACT.usx" role="ACT"/>
+          <content name="book-rom" src="release/USX_1/ROM.usx" role="ROM"/>
+          <content name="book-1co" src="release/USX_1/1CO.usx" role="1CO"/>
+          <content name="book-2co" src="release/USX_1/2CO.usx" role="2CO"/>
+          <content name="book-gal" src="release/USX_1/GAL.usx" role="GAL"/>
+          <content name="book-eph" src="release/USX_1/EPH.usx" role="EPH"/>
+          <content name="book-php" src="release/USX_1/PHP.usx" role="PHP"/>
+          <content name="book-col" src="release/USX_1/COL.usx" role="COL"/>
+          <content name="book-1th" src="release/USX_1/1TH.usx" role="1TH"/>
+          <content name="book-2th" src="release/USX_1/2TH.usx" role="2TH"/>
+          <content name="book-1ti" src="release/USX_1/1TI.usx" role="1TI"/>
+          <content name="book-2ti" src="release/USX_1/2TI.usx" role="2TI"/>
+          <content name="book-tit" src="release/USX_1/TIT.usx" role="TIT"/>
+          <content name="book-phm" src="release/USX_1/PHM.usx" role="PHM"/>
+          <content name="book-heb" src="release/USX_1/HEB.usx" role="HEB"/>
+          <content name="book-jas" src="release/USX_1/JAS.usx" role="JAS"/>
+          <content name="book-1pe" src="release/USX_1/1PE.usx" role="1PE"/>
+          <content name="book-2pe" src="release/USX_1/2PE.usx" role="2PE"/>
+          <content name="book-1jn" src="release/USX_1/1JN.usx" role="1JN"/>
+          <content name="book-2jn" src="release/USX_1/2JN.usx" role="2JN"/>
+          <content name="book-3jn" src="release/USX_1/3JN.usx" role="3JN"/>
+          <content name="book-jud" src="release/USX_1/JUD.usx" role="JUD"/>
+          <content name="book-rev" src="release/USX_1/REV.usx" role="REV"/>
+        </structure>
+      </publication>
+    </publications>
+    <copyright>
+      <fullStatement>
+        <statementContent type="xhtml">
+          <p>PUBLIC DOMAIN</p>
+        </statementContent>
+        <statementContent type="plain">Copyright © 2015 Wilbur N. Pickering. This text is made available to you under the terms of the Creative Commons Attribution-Noncommercial-No Derivatives license 4.0.</statementContent>
+      </fullStatement>
+    </copyright>
+    <promotion>
+      <promoVersionInfo contentType="xhtml">
+        <p>Courtesy Wilbur N. Pickering.</p>
+      </promoVersionInfo>
+    </promotion>
+    <archiveStatus>
+      <archivistName>Michael Paul Johnson</archivistName>
+      <dateArchived>2020-07-03T23:17:27.0998675+00:00</dateArchived>
+      <dateUpdated>2020-07-03T23:18:19.188739</dateUpdated>
+      <comments>Initial submission to the DBL</comments>
+    </archiveStatus>
+  </DBLMetadata>

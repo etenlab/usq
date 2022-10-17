@@ -1,4 +1,4 @@
-import { Client, Pool } from 'pg';
+import { Client, Pool, PoolClient } from 'pg';
 import { IUSFMParsedObject, IVerse, ChapterContent } from 'usfm-grammar';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
 
@@ -46,7 +46,7 @@ export function getInsertParameters(collection: ICollectionParameters, data: IUS
     });
 }
 
-export async function insertWord(client: Client | Pool, params: IInsertParameters) {
+export async function insertWord(client: Client | Pool | PoolClient, params: IInsertParameters) {
   const query = {
     text: INSERT_QUERY_TEMPLATE,
     values: [

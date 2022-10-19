@@ -10,4 +10,4 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ../schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ../sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql

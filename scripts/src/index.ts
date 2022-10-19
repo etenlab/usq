@@ -53,11 +53,12 @@ async function main() {
     try {
       await client.query("BEGIN");
       for (const input of inputFiles) {
-        await parseFile(client, input);
+        await ingestFile(client, input);
       }
       await client.query("COMMIT");
     } catch (e) {
       await client.query("ROLLBACK");
+      throw e;
     } finally {
       client.release();
     }
@@ -70,6 +71,7 @@ async function main() {
 
 main()
   .catch(e => {
+    console.log();
     console.log(e);
     process.exit(1);
   });

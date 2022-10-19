@@ -21,13 +21,17 @@ const defaultClient = {
   idleTimeoutMillis: 0
 };
 
-async function parseFile(client: PoolClient, path: string) {
+async function parseFile(path: string) {
+  const content = await readFile(path, 'utf8');
+  const parser = new USFMParser(content);
+  return parser.toJSON();
+}
+
+async function ingestFile(client: PoolClient, path: string) {
 
   console.log(`Starting file ${path}`);
 
-  const content = await readFile(path, 'utf8');
-  const parser = new USFMParser(content);
-  const json = parser.toJSON();
+  const json = await parseFile(path);
 
   const inserts = getInsertParameters(defaultCollection, json);
   const total = inserts.length;

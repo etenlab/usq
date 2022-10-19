@@ -45,7 +45,7 @@ word AS (
         SET word = excluded.word
      RETURNING word_index_id
 )
-INSERT INTO usq_word_references(verse_id, word_index_id, word_number)
+INSERT INTO usq_word_references(verse_id, word_index_id, word_number, meta)
 VALUES
-((SELECT verse_id FROM verse), (SELECT word_index_id FROM word), $8);
+((SELECT verse_id FROM verse), (SELECT word_index_id FROM word), $8, $9);
 `;

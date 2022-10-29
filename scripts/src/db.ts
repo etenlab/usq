@@ -1,5 +1,5 @@
 import { Client, Pool, PoolClient } from 'pg';
-import { IUSFMParsedObject, IVerse, ChapterContent } from 'usfm-grammar';
+import { IUSFMParsedObject, IVerse, IChapter, ChapterContent, OtherElement } from 'usfm-grammar';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
 
 interface ICollectionParameters {
@@ -17,58 +17,115 @@ interface IInsertParameters extends ICollectionParameters {
 }
 
 function realWordsOnly(str: string) {
-  return str.split(/b/)
-    .filter(substr => substr.match(/\w/));
+  return str.split(/[^\w’]/)
+    .filter(substr => substr.match(/[\w’]/));
 }
 
-export function getInsertParameters(collection: ICollectionParameters, data: IUSFMParsedObject) {
+function parsedFileToChapters(data: IUSFMParsedObject): IChapter[] {
+  return data.chapters;
+}
+
+function chaptersToVerses(chapters: IChapter[]): (IVerse & { chapterNumber: number })[] {
+  return chapters.flatMap(chapter => {
+    const { chapterNumber, contents } = chapter;
+
+    return contents.filter(content => {
+      return content
+        && typeof content === 'object'
+        && 'verseNumber' in content;
+    })
+      .map(content => content as IVerse)
+      .map(verse => {
+        return {
+          ...verse,
+          chapterNumber
+        }
+      });
+  });
+}
+
+interface INormalContent {
+  word: string;
+  meta: { type: string }
+}
+function normalizeContent(content: OtherElement): INormalContent[] {
+  if (content === null) {
+    return [] as INormalContent[];
+  } else if (typeof content === 'string') {
+    return [{ word: content as string, meta: { type: "puncutation" } }]
+  } else if (typeof content === 'object' && 'items' in content) {
+    const o: { items: OtherElement[] } = content as any;
+    return o.items.flatMap(normalizeContent);
+  } else if (typeof content === 'object' && 'w' in content) {
+    const o: { w: string[], attributes: object[] } = content as any;
+
+    return o.w.flatMap(ws => {
+      return realWordsOnly(ws).map(word => {
+        return {
+          word,
+          meta: {
+            type: "word",
+            ...o.attributes.reduce((acc, o) => ({ ...acc, ...o }), {})
+          }
+        }
+      });
+    });
+  } else if (typeof content === 'object' && 'add' in content) {
+    const o: { add: string[] } = content as any;
+
+    return o.add.flatMap(ws => {
+      return realWordsOnly(ws).map(word => {
+        return {
+          word,
+          meta: {
+            type: "addition"
+          }
+        }
+      });
+    });
+  }
+
+  return [] as INormalContent[];
+}
+
+function versesToContents(verses: (IVerse & { chapterNumber: number })[]): (INormalContent & { verseNumber: number, chapterNumber: number})[] {
+  return verses.flatMap(verse => {
+    const { verseNumber, chapterNumber } = verse;
+
+    if (verse.contents) {
+      return verse.contents.flatMap(normalizeContent)
+          .map((normalContent: INormalContent) => {
+          return {
+            ...normalContent,
+            verseNumber: parseInt(verseNumber),
+            chapterNumber
+          }
+        });
+    } else {
+      return [];
+    }
+  });
+}
+
+export function getInsertParameters(collection: ICollectionParameters, data: IUSFMParsedObject): IInsertParameters[] {
   const { languageIndex, languageId, collectionName } = collection;
   const bookName = data.book.bookCode;
 
-  return data.chapters.flatMap(chapter => {
-    const chapterNumber = chapter.chapterNumber;
+  const chapters = parsedFileToChapters(data);
+  const verses = chaptersToVerses(chapters);
+  const contents = versesToContents(verses);
 
-    return chapter.contents
-      .filter((content: ChapterContent) => {
-        return content != null
-          && typeof content === 'object'
-          && 'verseNumber' in content
-      })
-      .flatMap((content: ChapterContent) => {
-        const verse = content as IVerse;
-        const verseNumber = parseInt(verse.verseNumber);
-        let words: { word: string, attrs: object[] }[];
-        if (verse.contents) {
-          words = verse.contents
-            .filter(d => {
-              return d != null
-                && typeof d === 'object'
-                && 'w' in d
-                && 'attributes' in d
-            })
-            // Type puning to make TS understand that the filter
-            // above rules out other types d could be
-            .map((d: any) => d as { w: string[], attributes: object[] })
-            .flatMap((d) => {
-              const ws = d.w.flatMap(realWordsOnly);
-              return ws.map(word => ({ word, attrs: d.attributes }));
-            });
-        } else {
-          words = [];
-        }
-
-        return words.map(({ word, attrs }, wordNumber) => ({
-          languageIndex,
-          languageId,
-          collectionName,
-          bookName,
-          chapterNumber,
-          verseNumber,
-          word,
-          wordNumber,
-            meta: attrs.reduce((acc, o) => ({...acc, ...o}), {})
-        }));
-      });
+  return contents.map((content, wordNumber) => {
+    return {
+        ...content,
+        word: content.word,
+        meta: content.meta,
+      wordNumber,
+      bookName,
+      languageIndex,
+      languageId,
+      collectionName
+    };
   });
 }
 

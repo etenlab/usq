@@ -1,5 +1,5 @@
 import { Client, Pool, PoolClient } from 'pg';
-import { IUSFMParsedObject, IVerse, IChapter, ChapterContent, OtherElement } from 'usfm-grammar';
+import { IUSFMParsedObject, IVerse, IChapter, OtherElement } from 'usfm-grammar';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
 
 interface ICollectionParameters {
@@ -16,9 +16,14 @@ interface IInsertParameters extends ICollectionParameters {
   meta: object;
 }
 
-function realWordsOnly(str: string) {
-  return str.split(/[^\w’]/)
-    .filter(substr => substr.match(/[\w’]/));
+const WORD_REGEX = /[\w’]/;
+
+function spitWords(ws: string) {
+  return ws.split(WORD_REGEX);
+}
+
+function isPunctuation(word: string) {
+  return !word.match(WORD_REGEX);
 }
 
 function parsedFileToChapters(data: IUSFMParsedObject): IChapter[] {
@@ -44,57 +49,84 @@ function chaptersToVerses(chapters: IChapter[]): (IVerse & { chapterNumber: numb
   });
 }
 
+interface IMeta {
+  type: string
+}
+
 interface INormalContent {
   word: string;
-  meta: { type: string }
+  meta: IMeta
 }
-function normalizeContent(content: OtherElement): INormalContent[] {
+function normalizeString(word: string, meta: IMeta = { type: "word" }): INormalContent {
+
+  if (isPunctuation(word)) {
+    return {
+      word,
+      meta: {
+        type: "punctuation"
+      }
+    };
+  }
+  else {
+    return {
+      word,
+      meta: meta
+    };
+  }
+
+}
+
+function normalizeContent(content: OtherElement, meta?: IMeta): INormalContent[] {
   if (content === null) {
+
     return [] as INormalContent[];
+
   } else if (typeof content === 'string') {
-    return [{ word: content as string, meta: { type: "puncutation" } }]
+
+    return spitWords(content).map((w) => normalizeString(w, meta));
+
   } else if (typeof content === 'object' && 'items' in content) {
+
     const o: { items: OtherElement[] } = content as any;
-    return o.items.flatMap(normalizeContent);
+    return o.items.flatMap((i) => normalizeContent(i));
+
   } else if (typeof content === 'object' && 'w' in content) {
+
     const o: { w: string[], attributes: object[] } = content as any;
 
     return o.w.flatMap(ws => {
-      return realWordsOnly(ws).map(word => {
-        return {
-          word,
-          meta: {
-            type: "word",
-            ...o.attributes.reduce((acc, o) => ({ ...acc, ...o }), {})
-          }
-        }
-      });
+      const meta: IMeta = {
+        type: "word",
+        ...o.attributes.reduce((acc, o) => ({ ...acc, ...o }), {})
+      };
+
+      return normalizeContent(ws, meta);
     });
+
   } else if (typeof content === 'object' && 'add' in content) {
+
     const o: { add: string[] } = content as any;
 
     return o.add.flatMap(ws => {
-      return realWordsOnly(ws).map(word => {
-        return {
-          word,
-          meta: {
-            type: "addition"
-          }
-        }
-      });
+      const meta: IMeta = {
+        type: "addition"
+      };
+
+      return normalizeContent(ws, meta);
+
     });
   }
 
   return [] as INormalContent[];
 }
 
-function versesToContents(verses: (IVerse & { chapterNumber: number })[]): (INormalContent & { verseNumber: number, chapterNumber: number})[] {
+function versesToContents(verses: (IVerse & { chapterNumber: number })[]): (INormalContent & { verseNumber: number, chapterNumber: number })[] {
   return verses.flatMap(verse => {
     const { verseNumber, chapterNumber } = verse;
 
     if (verse.contents) {
-      return verse.contents.flatMap(normalizeContent)
-          .map((normalContent: INormalContent) => {
+      return verse.contents.flatMap((v) => normalizeContent(v))
+        .map((normalContent: INormalContent) => {
           return {
             ...normalContent,
             verseNumber: parseInt(verseNumber),
@@ -117,9 +149,9 @@ export function getInsertParameters(collection: ICollectionParameters, data: IUS
 
   return contents.map((content, wordNumber) => {
     return {
-        ...content,
-        word: content.word,
-        meta: content.meta,
+      ...content,
+      word: content.word,
+      meta: content.meta,
       wordNumber,
       bookName,
       languageIndex,

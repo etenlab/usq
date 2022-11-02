@@ -16,10 +16,12 @@ interface IInsertParameters extends ICollectionParameters {
   meta: object;
 }
 
-const WORD_REGEX = /[\w’]/;
+const WORD_REGEX = /[\w’]+/;
+const TOKEN_REGEX = /([\w’]+)|([^\s\w’]+)/g;
 
-function spitWords(ws: string) {
-  return ws.split(WORD_REGEX);
+function tokenize(ws: string) {
+  const arr = ws.match(TOKEN_REGEX);
+  return arr ? arr : [];
 }
 
 function isPunctuation(word: string) {
@@ -66,8 +68,7 @@ function normalizeString(word: string, meta: IMeta = { type: "word" }): INormalC
         type: "punctuation"
       }
     };
-  }
-  else {
+  } else {
     return {
       word,
       meta: meta
@@ -83,7 +84,7 @@ function normalizeContent(content: OtherElement, meta?: IMeta): INormalContent[]
 
   } else if (typeof content === 'string') {
 
-    return spitWords(content).map((w) => normalizeString(w, meta));
+    return tokenize(content).map((w) => normalizeString(w, meta));
 
   } else if (typeof content === 'object' && 'items' in content) {
 

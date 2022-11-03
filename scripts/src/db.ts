@@ -2,12 +2,14 @@ import { Client, Pool, PoolClient } from 'pg';
 import { IUSFMParsedObject, IVerse, IChapter, OtherElement } from 'usfm-grammar';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
 
-interface ICollectionParameters {
+import options from './options';
+
+export interface ICollectionParameters {
   languageIndex: string;
   languageId: number;
   collectionName: string;
 }
-interface IInsertParameters extends ICollectionParameters {
+export interface IInsertParameters extends ICollectionParameters {
   bookName: string;
   chapterNumber: number;
   verseNumber: number;
@@ -16,8 +18,8 @@ interface IInsertParameters extends ICollectionParameters {
   meta: object;
 }
 
-const WORD_REGEX = /[\w’]+/;
-const TOKEN_REGEX = /([\w’]+)|([^\s\w’]+)/g;
+const WORD_REGEX = options.regexes.word;
+const TOKEN_REGEX = options.regexes.token;
 
 function tokenize(ws: string) {
   const arr = ws.match(TOKEN_REGEX);

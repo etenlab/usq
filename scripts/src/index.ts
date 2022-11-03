@@ -6,20 +6,8 @@ import { Pool, PoolClient } from 'pg';
 
 import { getInsertParameters, insertWord } from './db';
 
-const defaultCollection = {
-  languageIndex: "_fake_index_1",
-  languageId: 1,
-  collectionName: "us_ENG"
-}
+import options from './options';
 
-const defaultClient = {
-  user: 'postgres',
-  host: 'localhost',
-  database: 'postgres',
-  password: 'postgres',
-  port: 5432,
-  idleTimeoutMillis: 0
-};
 
 async function parseFile(path: string) {
   const content = await readFile(path, 'utf8');
@@ -51,7 +39,7 @@ async function main() {
   const inputFiles = process.argv.slice(2);
 
   if (inputFiles.length > 0) {
-    const pool = new Pool(defaultClient);
+    const pool = new Pool(options.dbConfig);
     const client = await pool.connect();
 
     try {

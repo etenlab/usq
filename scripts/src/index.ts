@@ -21,7 +21,7 @@ async function ingestFile(client: PoolClient, path: string) {
 
   const json = await parseFile(path);
 
-  const inserts = getInsertParameters(defaultCollection, json);
+  const inserts = getInsertParameters(options.collectionConfig, json);
   const total = inserts.length;
   let completed = 0;
 
@@ -36,7 +36,7 @@ async function ingestFile(client: PoolClient, path: string) {
 }
 
 async function main() {
-  const inputFiles = process.argv.slice(2);
+  const inputFiles = options.inputFiles;
 
   if (inputFiles.length > 0) {
     const pool = new Pool(options.dbConfig);
@@ -61,9 +61,11 @@ async function main() {
   process.exit(0);
 }
 
-main()
-  .catch(e => {
-    console.log();
-    console.log(e);
-    process.exit(1);
-  });
+options.initialize().then(() => {
+  main()
+    .catch(e => {
+      console.log();
+      console.log(e);
+      process.exit(1);
+    });
+});

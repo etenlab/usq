@@ -1,0 +1,27 @@
+# Get a structure representing a verse, filtered by its chapter and book
+
+query GetWordsByVerseChapterAndBook($verse: Int, $chapter: Int, $book_name: String) {
+  usq_book_index(where: {name: {_eq: $book_name}}) {
+    name
+    usq_books {
+      usq_chapters(where: {chapter_number: {_eq: $chapter}}, order_by: {chapter_number: asc}) {
+        chapter_number
+        usq_verses(order_by: {verse_number: asc}, where: {verse_number: {_eq: $verse}}) {
+          verse_number
+          usq_word_references(order_by: {word_number: asc}) {
+            word_number
+            usq_word_index {
+              meta
+              usq_word_references {
+                meta
+                usq_word_index {
+                  word
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

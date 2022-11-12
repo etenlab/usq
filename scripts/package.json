@@ -22,6 +22,7 @@
   "dependencies": {
     "@types/pg": "^8.6.5",
     "pg": "^8.8.0",
+    "proskomma": "^0.8.0",
     "usfm-grammar": "^2.3.0",
     "yargs": "^17.6.1"
   }

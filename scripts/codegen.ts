@@ -5,8 +5,11 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: "http://localhost:2468/graphql",
   generates: {
-    "src/generated/graphql.ts": {
-      plugins: ["typescript"]
+    "types/graphql.d.ts": {
+      plugins: ["typescript"],
+      config: {
+        noExport: true
+      }
     }
   }
 };

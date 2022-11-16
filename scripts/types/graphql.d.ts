@@ -1,10 +1,10 @@
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+type Maybe<T> = T | null;
+type InputMaybe<T> = Maybe<T>;
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
+type Scalars = {
   ID: string;
   String: string;
   Boolean: boolean;
@@ -13,7 +13,7 @@ export type Scalars = {
 };
 
 /** Attribute Specification */
-export type AttSpec = {
+type AttSpec = {
   /** The attribute key (ie the bit to the left of the equals sign in USX) */
   attKey: Scalars['String'];
   /** The type of attribute, ie what type of thing it's connected to */
@@ -25,7 +25,7 @@ export type AttSpec = {
 };
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-export type Block = {
+type Block = {
   __typename?: 'Block';
   /** A list of block grafts for this block */
   bg: Array<Item>;
@@ -71,14 +71,14 @@ export type Block = {
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-export type BlockItemGroupsArgs = {
+type BlockItemGroupsArgs = {
   byMilestones?: InputMaybe<Array<Scalars['String']>>;
   byScopes?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-export type BlockItemsArgs = {
+type BlockItemsArgs = {
   anyScope?: InputMaybe<Scalars['Boolean']>;
   includeContext?: InputMaybe<Scalars['Boolean']>;
   withScopes?: InputMaybe<Array<Scalars['String']>>;
@@ -87,20 +87,20 @@ export type BlockItemsArgs = {
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-export type BlockScopeLabelsArgs = {
+type BlockScopeLabelsArgs = {
   startsWith?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-export type BlockTextArgs = {
+type BlockTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
   withScriptureCV?: InputMaybe<Scalars['String']>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-export type BlockTokensArgs = {
+type BlockTokensArgs = {
   anyScope?: InputMaybe<Scalars['Boolean']>;
   includeContext?: InputMaybe<Scalars['Boolean']>;
   withChars?: InputMaybe<Array<Scalars['String']>>;
@@ -111,7 +111,7 @@ export type BlockTokensArgs = {
 };
 
 /** A collection of documents that share the same set of selector values */
-export type DocSet = {
+type DocSet = {
   __typename?: 'DocSet';
   /** A document in the docSet, if present */
   document?: Maybe<Document>;
@@ -147,13 +147,13 @@ export type DocSet = {
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetDocumentArgs = {
+type DocSetDocumentArgs = {
   bookCode: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetDocumentsArgs = {
+type DocSetDocumentsArgs = {
   allChars?: InputMaybe<Scalars['Boolean']>;
   allScopes?: InputMaybe<Scalars['Boolean']>;
   ids?: InputMaybe<Array<Scalars['String']>>;
@@ -168,38 +168,38 @@ export type DocSetDocumentsArgs = {
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetEnumIndexForStringArgs = {
+type DocSetEnumIndexForStringArgs = {
   enumType: Scalars['String'];
   searchString: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetEnumRegexIndexesForStringArgs = {
+type DocSetEnumRegexIndexesForStringArgs = {
   enumType: Scalars['String'];
   searchRegex: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetHasTagArgs = {
+type DocSetHasTagArgs = {
   tagName: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetSelectorArgs = {
+type DocSetSelectorArgs = {
   id: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-export type DocSetWordLikesArgs = {
+type DocSetWordLikesArgs = {
   coerceCase?: InputMaybe<Scalars['String']>;
 };
 
 /** A document, typically corresponding to USFM for one book */
-export type Document = {
+type Document = {
   __typename?: 'Document';
   /** The content of a chapter */
   cIndex: CIndex;
@@ -273,13 +273,13 @@ export type Document = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentCIndexArgs = {
+type DocumentCIndexArgs = {
   chapter: Scalars['Int'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentCvArgs = {
+type DocumentCvArgs = {
   chapter?: InputMaybe<Scalars['String']>;
   chapterVerses?: InputMaybe<Scalars['String']>;
   includeContext?: InputMaybe<Scalars['Boolean']>;
@@ -288,13 +288,13 @@ export type DocumentCvArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentCvIndexArgs = {
+type DocumentCvIndexArgs = {
   chapter: Scalars['Int'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentCvMatchingArgs = {
+type DocumentCvMatchingArgs = {
   allChars?: InputMaybe<Scalars['Boolean']>;
   allScopes?: InputMaybe<Scalars['Boolean']>;
   withChars?: InputMaybe<Array<Scalars['String']>>;
@@ -304,32 +304,32 @@ export type DocumentCvMatchingArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentCvNavigationArgs = {
+type DocumentCvNavigationArgs = {
   chapter: Scalars['String'];
   verse: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentHasTagArgs = {
+type DocumentHasTagArgs = {
   tagName: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentHeaderArgs = {
+type DocumentHeaderArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentKvSequenceArgs = {
+type DocumentKvSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentKvSequencesArgs = {
+type DocumentKvSequencesArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   withTags?: InputMaybe<Array<Scalars['String']>>;
   withoutTags?: InputMaybe<Array<Scalars['String']>>;
@@ -337,19 +337,19 @@ export type DocumentKvSequencesArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentMainBlocksTextArgs = {
+type DocumentMainBlocksTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentMainTextArgs = {
+type DocumentMainTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentMappedCvArgs = {
+type DocumentMappedCvArgs = {
   chapter: Scalars['String'];
   includeContext?: InputMaybe<Scalars['Boolean']>;
   mappedDocSetId: Scalars['String'];
@@ -358,7 +358,7 @@ export type DocumentMappedCvArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentMappedCvsArgs = {
+type DocumentMappedCvsArgs = {
   chapter: Scalars['String'];
   includeContext?: InputMaybe<Scalars['Boolean']>;
   mappedDocSetId: Scalars['String'];
@@ -366,19 +366,19 @@ export type DocumentMappedCvsArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentPerfArgs = {
+type DocumentPerfArgs = {
   indent?: InputMaybe<Scalars['Int']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentSequenceArgs = {
+type DocumentSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentSequencesArgs = {
+type DocumentSequencesArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   types?: InputMaybe<Array<Scalars['String']>>;
   withTags?: InputMaybe<Array<Scalars['String']>>;
@@ -387,13 +387,13 @@ export type DocumentSequencesArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentTableSequenceArgs = {
+type DocumentTableSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentTableSequencesArgs = {
+type DocumentTableSequencesArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   withTags?: InputMaybe<Array<Scalars['String']>>;
   withoutTags?: InputMaybe<Array<Scalars['String']>>;
@@ -401,7 +401,7 @@ export type DocumentTableSequencesArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentTextSequencesArgs = {
+type DocumentTextSequencesArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   withTags?: InputMaybe<Array<Scalars['String']>>;
   withoutTags?: InputMaybe<Array<Scalars['String']>>;
@@ -409,20 +409,20 @@ export type DocumentTextSequencesArgs = {
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentTreeSequenceArgs = {
+type DocumentTreeSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-export type DocumentTreeSequencesArgs = {
+type DocumentTreeSequencesArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   withTags?: InputMaybe<Array<Scalars['String']>>;
   withoutTags?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Item for arguments */
-export type InputItemObject = {
+type InputItemObject = {
   /** The content of the item (the text for tokens, the label for scopes and the sequence id for grafts) */
   payload: Scalars['String'];
   /** The type-dependent subtype of the item */
@@ -432,7 +432,7 @@ export type InputItemObject = {
 };
 
 /** Input Key/Value Object */
-export type InputKeyValue = {
+type InputKeyValue = {
   /** The key */
   key: Scalars['String'];
   /** The value */
@@ -440,7 +440,7 @@ export type InputKeyValue = {
 };
 
 /** Item */
-export type Item = {
+type Item = {
   __typename?: 'Item';
   /** The content of the item (the text for tokens, the label for scopes and the sequence id for grafts) */
   payload: Scalars['String'];
@@ -456,7 +456,7 @@ export type Item = {
 
 
 /** Item */
-export type ItemPayloadArgs = {
+type ItemPayloadArgs = {
   excludeChars?: InputMaybe<Array<Scalars['String']>>;
   includeChars?: InputMaybe<Array<Scalars['String']>>;
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
@@ -464,18 +464,18 @@ export type ItemPayloadArgs = {
 
 
 /** Item */
-export type ItemPositionArgs = {
+type ItemPositionArgs = {
   startsWith?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** Item */
-export type ItemScopesArgs = {
+type ItemScopesArgs = {
   startsWith?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A collection of items, with scope context */
-export type ItemGroup = {
+type ItemGroup = {
   __typename?: 'ItemGroup';
   /** The itemGroup content as a string in a compact eyeballable format */
   dump: Scalars['String'];
@@ -493,25 +493,25 @@ export type ItemGroup = {
 
 
 /** A collection of items, with scope context */
-export type ItemGroupScopeLabelsArgs = {
+type ItemGroupScopeLabelsArgs = {
   startsWith?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A collection of items, with scope context */
-export type ItemGroupTextArgs = {
+type ItemGroupTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A collection of items, with scope context */
-export type ItemGroupTokensArgs = {
+type ItemGroupTokensArgs = {
   withChars?: InputMaybe<Array<Scalars['String']>>;
   withSubTypes?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Key/Regex tuple */
-export type KeyMatches = {
+type KeyMatches = {
   /** The key */
   key: Scalars['String'];
   /** The regex to match */
@@ -519,7 +519,7 @@ export type KeyMatches = {
 };
 
 /** Key/Value tuple */
-export type KeyValue = {
+type KeyValue = {
   __typename?: 'KeyValue';
   /** The key */
   key: Scalars['String'];
@@ -528,14 +528,14 @@ export type KeyValue = {
 };
 
 /** Input Key/Values Object */
-export type KeyValues = {
+type KeyValues = {
   /** The key */
   key: Scalars['String'];
   /** The values */
   values: Array<Scalars['String']>;
 };
 
-export type Mutation = {
+type Mutation = {
   __typename?: 'Mutation';
   /** Add one or more tags to a docSet, if they are not already present */
   addDocSetTags: Array<Scalars['String']>;
@@ -578,13 +578,13 @@ export type Mutation = {
 };
 
 
-export type MutationAddDocSetTagsArgs = {
+type MutationAddDocSetTagsArgs = {
   docSetId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-export type MutationAddDocumentArgs = {
+type MutationAddDocumentArgs = {
   content: Scalars['String'];
   contentType: Scalars['String'];
   selectors: Array<InputKeyValue>;
@@ -592,14 +592,14 @@ export type MutationAddDocumentArgs = {
 };
 
 
-export type MutationAddDocumentTagsArgs = {
+type MutationAddDocumentTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-export type MutationAddSequenceTagsArgs = {
+type MutationAddSequenceTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
@@ -607,37 +607,37 @@ export type MutationAddSequenceTagsArgs = {
 };
 
 
-export type MutationDeleteBlockArgs = {
+type MutationDeleteBlockArgs = {
   blockN: Scalars['Int'];
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
 };
 
 
-export type MutationDeleteDocSetArgs = {
+type MutationDeleteDocSetArgs = {
   docSetId: Scalars['String'];
 };
 
 
-export type MutationDeleteDocumentArgs = {
+type MutationDeleteDocumentArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
 };
 
 
-export type MutationDeleteSequenceArgs = {
+type MutationDeleteSequenceArgs = {
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
 };
 
 
-export type MutationGcSequencesArgs = {
+type MutationGcSequencesArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
 };
 
 
-export type MutationNewBlockArgs = {
+type MutationNewBlockArgs = {
   blockN: Scalars['Int'];
   blockScope: Scalars['String'];
   documentId: Scalars['String'];
@@ -645,7 +645,7 @@ export type MutationNewBlockArgs = {
 };
 
 
-export type MutationNewSequenceArgs = {
+type MutationNewSequenceArgs = {
   blocksSpec?: InputMaybe<Array<InputBlockSpec>>;
   documentId: Scalars['String'];
   graftToMain?: InputMaybe<Scalars['Boolean']>;
@@ -654,25 +654,25 @@ export type MutationNewSequenceArgs = {
 };
 
 
-export type MutationRehashDocSetArgs = {
+type MutationRehashDocSetArgs = {
   docSetId: Scalars['String'];
 };
 
 
-export type MutationRemoveDocSetTagsArgs = {
+type MutationRemoveDocSetTagsArgs = {
   docSetId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-export type MutationRemoveDocumentTagsArgs = {
+type MutationRemoveDocumentTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-export type MutationRemoveSequenceTagsArgs = {
+type MutationRemoveSequenceTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
@@ -680,19 +680,19 @@ export type MutationRemoveSequenceTagsArgs = {
 };
 
 
-export type MutationSetVerseMappingArgs = {
+type MutationSetVerseMappingArgs = {
   docSetId: Scalars['String'];
   jsonSource?: InputMaybe<Scalars['String']>;
   vrsSource?: InputMaybe<Scalars['String']>;
 };
 
 
-export type MutationUnsetVerseMappingArgs = {
+type MutationUnsetVerseMappingArgs = {
   docSetId: Scalars['String'];
 };
 
 
-export type MutationUpdateAllBlocksArgs = {
+type MutationUpdateAllBlocksArgs = {
   blocksSpec: Array<InputBlockSpec>;
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
@@ -700,7 +700,7 @@ export type MutationUpdateAllBlocksArgs = {
 };
 
 
-export type MutationUpdateItemsArgs = {
+type MutationUpdateItemsArgs = {
   blockGrafts?: InputMaybe<Array<InputItemObject>>;
   blockPosition: Scalars['Int'];
   blockScope?: InputMaybe<InputItemObject>;
@@ -711,7 +711,7 @@ export type MutationUpdateItemsArgs = {
 };
 
 /** The top level of Proskomma queries */
-export type Query = {
+type Query = {
   __typename?: 'Query';
   /** The docSet with the specified id */
   docSet?: Maybe<DocSet>;
@@ -737,13 +737,13 @@ export type Query = {
 
 
 /** The top level of Proskomma queries */
-export type QueryDocSetArgs = {
+type QueryDocSetArgs = {
   id: Scalars['String'];
 };
 
 
 /** The top level of Proskomma queries */
-export type QueryDocSetsArgs = {
+type QueryDocSetsArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   withBook?: InputMaybe<Scalars['String']>;
   withSelectors?: InputMaybe<Array<InputKeyValue>>;
@@ -753,7 +753,7 @@ export type QueryDocSetsArgs = {
 
 
 /** The top level of Proskomma queries */
-export type QueryDocumentArgs = {
+type QueryDocumentArgs = {
   docSetId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['String']>;
   withBook?: InputMaybe<Scalars['String']>;
@@ -761,7 +761,7 @@ export type QueryDocumentArgs = {
 
 
 /** The top level of Proskomma queries */
-export type QueryDocumentsArgs = {
+type QueryDocumentsArgs = {
   ids?: InputMaybe<Array<Scalars['String']>>;
   sortedBy?: InputMaybe<Scalars['String']>;
   withBook?: InputMaybe<Scalars['String']>;
@@ -771,7 +771,7 @@ export type QueryDocumentsArgs = {
 };
 
 /** A contiguous flow of content */
-export type Sequence = {
+type Sequence = {
   __typename?: 'Sequence';
   /** The blocks in the sequence */
   blocks: Array<Block>;
@@ -807,7 +807,7 @@ export type Sequence = {
 
 
 /** A contiguous flow of content */
-export type SequenceBlocksArgs = {
+type SequenceBlocksArgs = {
   allAtts?: InputMaybe<Scalars['Boolean']>;
   allChars?: InputMaybe<Scalars['Boolean']>;
   attSpecs?: InputMaybe<Array<Array<AttSpec>>>;
@@ -822,51 +822,51 @@ export type SequenceBlocksArgs = {
 
 
 /** A contiguous flow of content */
-export type SequenceBlocksTextArgs = {
+type SequenceBlocksTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A contiguous flow of content */
-export type SequenceHasCharsArgs = {
+type SequenceHasCharsArgs = {
   allChars?: InputMaybe<Scalars['Boolean']>;
   chars?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A contiguous flow of content */
-export type SequenceHasMatchingCharsArgs = {
+type SequenceHasMatchingCharsArgs = {
   allChars?: InputMaybe<Scalars['Boolean']>;
   chars?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A contiguous flow of content */
-export type SequenceHasTagArgs = {
+type SequenceHasTagArgs = {
   tagName: Scalars['String'];
 };
 
 
 /** A contiguous flow of content */
-export type SequenceItemGroupsArgs = {
+type SequenceItemGroupsArgs = {
   byMilestones?: InputMaybe<Array<Scalars['String']>>;
   byScopes?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A contiguous flow of content */
-export type SequenceTextArgs = {
+type SequenceTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A contiguous flow of content */
-export type SequenceWordLikesArgs = {
+type SequenceWordLikesArgs = {
   coerceCase?: InputMaybe<Scalars['String']>;
 };
 
 /** A chapter index entry */
-export type CIndex = {
+type CIndex = {
   __typename?: 'cIndex';
   /** The chapter number */
   chapter: Scalars['Int'];
@@ -892,26 +892,26 @@ export type CIndex = {
 
 
 /** A chapter index entry */
-export type CIndexItemsArgs = {
+type CIndexItemsArgs = {
   includeContext?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A chapter index entry */
-export type CIndexTextArgs = {
+type CIndexTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A chapter index entry */
-export type CIndexTokensArgs = {
+type CIndexTokensArgs = {
   includeContext?: InputMaybe<Scalars['Boolean']>;
   withChars?: InputMaybe<Array<Scalars['String']>>;
   withSubTypes?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A table cell */
-export type Cell = {
+type Cell = {
   __typename?: 'cell';
   /** The column numbers */
   columns: Array<Scalars['Int']>;
@@ -927,12 +927,12 @@ export type Cell = {
 
 
 /** A table cell */
-export type CellTextArgs = {
+type CellTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** A chapter-verse reference */
-export type Cv = {
+type Cv = {
   __typename?: 'cv';
   /** The chapter number */
   chapter?: Maybe<Scalars['Int']>;
@@ -941,7 +941,7 @@ export type Cv = {
 };
 
 /** A chapterVerse index entry */
-export type CvIndex = {
+type CvIndex = {
   __typename?: 'cvIndex';
   /** The chapter number */
   chapter: Scalars['Int'];
@@ -954,7 +954,7 @@ export type CvIndex = {
 };
 
 /** Various answers to 'previous' and 'next' with respect to a verse */
-export type CvNavigation = {
+type CvNavigation = {
   __typename?: 'cvNavigation';
   /** The next chapter number (as a string) */
   nextChapter?: Maybe<Scalars['String']>;
@@ -970,7 +970,7 @@ export type CvNavigation = {
   previousVerseRangeVerse?: Maybe<Cv>;
 };
 
-export type CvVerseElement = {
+type CvVerseElement = {
   __typename?: 'cvVerseElement';
   /** The items as a string in a compact eyeballable format */
   dumpItems?: Maybe<Scalars['String']>;
@@ -995,31 +995,31 @@ export type CvVerseElement = {
 };
 
 
-export type CvVerseElementItemsArgs = {
+type CvVerseElementItemsArgs = {
   includeContext?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-export type CvVerseElementTextArgs = {
+type CvVerseElementTextArgs = {
   normalizeSpace?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-export type CvVerseElementTokensArgs = {
+type CvVerseElementTokensArgs = {
   includeContext?: InputMaybe<Scalars['Boolean']>;
   withChars?: InputMaybe<Array<Scalars['String']>>;
   withSubTypes?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Information about a verse in the chapter, which may be split into several pieces */
-export type CvVerses = {
+type CvVerses = {
   __typename?: 'cvVerses';
   /** The pieces of verse */
   verse?: Maybe<Array<Maybe<CvVerseElement>>>;
 };
 
 /** Type-dependent parts of the ID header */
-export type IdParts = {
+type IdParts = {
   __typename?: 'idParts';
   /** A part of the ID, by index */
   part?: Maybe<Scalars['String']>;
@@ -1031,12 +1031,12 @@ export type IdParts = {
 
 
 /** Type-dependent parts of the ID header */
-export type IdPartsPartArgs = {
+type IdPartsPartArgs = {
   index: Scalars['Int'];
 };
 
 /** A specification to create or update a block */
-export type InputBlockSpec = {
+type InputBlockSpec = {
   /** The block grafts as items */
   bg: Array<InputItemObject>;
   /** The block scope as an item */
@@ -1050,7 +1050,7 @@ export type InputBlockSpec = {
 };
 
 /** Input specification of a selector */
-export type InputSelectorSpec = {
+type InputSelectorSpec = {
   /** Enum of permitted string values */
   enum?: InputMaybe<Array<Scalars['String']>>;
   /** Inclusive maximum value for integer selector */
@@ -1066,7 +1066,7 @@ export type InputSelectorSpec = {
 };
 
 /** Key/Items tuple */
-export type KvEntry = {
+type KvEntry = {
   __typename?: 'kvEntry';
   /** The fields as itemGroups */
   itemGroups: Array<Maybe<ItemGroup>>;
@@ -1077,7 +1077,7 @@ export type KvEntry = {
 };
 
 /** A contiguous flow of content for key-values */
-export type KvSequence = {
+type KvSequence = {
   __typename?: 'kvSequence';
   /** The entries in the key-value sequence */
   entries?: Maybe<Array<KvEntry>>;
@@ -1095,7 +1095,7 @@ export type KvSequence = {
 
 
 /** A contiguous flow of content for key-values */
-export type KvSequenceEntriesArgs = {
+type KvSequenceEntriesArgs = {
   contentEquals?: InputMaybe<Array<KeyValues>>;
   contentMatches?: InputMaybe<Array<KeyMatches>>;
   keyEquals?: InputMaybe<Array<Scalars['String']>>;
@@ -1106,12 +1106,12 @@ export type KvSequenceEntriesArgs = {
 
 
 /** A contiguous flow of content for key-values */
-export type KvSequenceHasTagArgs = {
+type KvSequenceHasTagArgs = {
   tagName?: InputMaybe<Scalars['String']>;
 };
 
 /** A tree node */
-export type Node = {
+type Node = {
   __typename?: 'node';
   /** The node children ids */
   childIds: Array<Scalars['String']>;
@@ -1127,12 +1127,12 @@ export type Node = {
 
 
 /** A tree node */
-export type NodeItemGroupsArgs = {
+type NodeItemGroupsArgs = {
   includeContext?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Mapped verse information */
-export type Orig = {
+type Orig = {
   __typename?: 'orig';
   /** The book code */
   book?: Maybe<Scalars['String']>;
@@ -1141,7 +1141,7 @@ export type Orig = {
 };
 
 /** Information about a regex match on an enum */
-export type RegexIndex = {
+type RegexIndex = {
   __typename?: 'regexIndex';
   /** The index in the enum */
   index: Scalars['String'];
@@ -1150,7 +1150,7 @@ export type RegexIndex = {
 };
 
 /** Row Equals Specification */
-export type RowEqualsSpec = {
+type RowEqualsSpec = {
   /** The position of the column in which to search a match */
   colN: Scalars['Int'];
   /** The values to match */
@@ -1158,7 +1158,7 @@ export type RowEqualsSpec = {
 };
 
 /** Row Match Specification */
-export type RowMatchSpec = {
+type RowMatchSpec = {
   /** The position of the column in which to search a match */
   colN: Scalars['Int'];
   /** The regex to match */
@@ -1166,7 +1166,7 @@ export type RowMatchSpec = {
 };
 
 /** Specification of a selector */
-export type SelectorSpec = {
+type SelectorSpec = {
   __typename?: 'selectorSpec';
   /** Enum of permitted string values */
   enum?: Maybe<Array<Scalars['String']>>;
@@ -1183,7 +1183,7 @@ export type SelectorSpec = {
 };
 
 /** A contiguous flow of content for a table */
-export type TableSequence = {
+type TableSequence = {
   __typename?: 'tableSequence';
   /** The cells in the table sequence */
   cells: Array<Cell>;
@@ -1209,13 +1209,13 @@ export type TableSequence = {
 
 
 /** A contiguous flow of content for a table */
-export type TableSequenceHasTagArgs = {
+type TableSequenceHasTagArgs = {
   tagName?: InputMaybe<Scalars['String']>;
 };
 
 
 /** A contiguous flow of content for a table */
-export type TableSequenceRowsArgs = {
+type TableSequenceRowsArgs = {
   columns?: InputMaybe<Array<Scalars['Int']>>;
   equals?: InputMaybe<Array<RowEqualsSpec>>;
   matches?: InputMaybe<Array<RowMatchSpec>>;
@@ -1223,7 +1223,7 @@ export type TableSequenceRowsArgs = {
 };
 
 /** The nodes of a tree */
-export type TreeSequence = {
+type TreeSequence = {
   __typename?: 'treeSequence';
   /** Whether or not the sequence has the specified tag */
   hasTag: Scalars['Boolean'];
@@ -1247,24 +1247,24 @@ export type TreeSequence = {
 
 
 /** The nodes of a tree */
-export type TreeSequenceHasTagArgs = {
+type TreeSequenceHasTagArgs = {
   tagName?: InputMaybe<Scalars['String']>;
 };
 
 
 /** The nodes of a tree */
-export type TreeSequenceTriboiArgs = {
+type TreeSequenceTriboiArgs = {
   queries: Array<Scalars['String']>;
 };
 
 
 /** The nodes of a tree */
-export type TreeSequenceTribosArgs = {
+type TreeSequenceTribosArgs = {
   query: Scalars['String'];
 };
 
 /** Information about a verse number (which may be part of a verse range) */
-export type VerseNumber = {
+type VerseNumber = {
   __typename?: 'verseNumber';
   /** The verse number */
   number: Scalars['Int'];
@@ -1275,7 +1275,7 @@ export type VerseNumber = {
 };
 
 /** Information about a verse range (which may only cover one verse) */
-export type VerseRange = {
+type VerseRange = {
   __typename?: 'verseRange';
   /** A list of verse numbers for this range */
   numbers: Array<Scalars['Int']>;

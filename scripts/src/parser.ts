@@ -114,8 +114,3 @@ export default function parseFile(filename: string) {
 
   return getDocument();
 }
-
-parseFile('./data/eng-t4t_usfm/73-JHNeng-t4t.usfm')
-  .then(d => {
-    console.log(JSON.stringify(d, null, 2));
-  });

@@ -3,20 +3,25 @@ import { readFileSync } from 'fs';
 
 const pk = new Proskomma();
 
-interface IItem {
-  type: string,
+export interface IItem {
+  type: 'graft' | 'scope' | 'token',
   subType: string,
   payload: string
 }
 
-interface IVerse {
+export interface IVerse {
   items: IItem[],
   verseNumber: string
 }
 
-interface IChapter {
+export interface IChapter {
   chapterNumber: number,
   verses: IVerse[]
+}
+
+export interface IDocument {
+  title: string,
+  chapters: IChapter[]
 }
 
 function normalizeArrayOfMaybes<T>(arr: Array<Maybe<T>>): T[] {
@@ -57,14 +62,14 @@ function normalizeChapter(chapter: CvIndex): IChapter {
   }
 }
 
-function normalizeDocument(doc: { header:string, cvIndexes: Array<Maybe<CvIndex>> }) {
+function normalizeDocument(doc: { header:string, cvIndexes: Array<Maybe<CvIndex>> }): IDocument {
   return {
     title: doc.header,
     chapters: normalizeArrayOfMaybes(doc.cvIndexes).map(normalizeChapter)
   }
 }
 
-function getDocument() {
+function getDocument(): Promise<IDocument> {
   const query = `
 {
 documents {
@@ -100,7 +105,7 @@ chapter
   })
 }
 
-export default function parseFile(filename: string) {
+export default function parseFile(filename: string): Promise<IDocument> {
   const content = readFileSync(filename, 'utf8');
 
   pk.importDocument(

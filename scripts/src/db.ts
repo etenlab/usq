@@ -1,5 +1,5 @@
 import { Client, Pool, PoolClient } from 'pg';
-import { IUSFMParsedObject, IVerse, IChapter, OtherElement } from 'usfm-grammar';
+import { IDocument, IVerse, IChapter, IItem } from './parser';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
 
 import options from './options';
@@ -30,125 +30,50 @@ function isPunctuation(word: string) {
   return !word.match(WORD_REGEX);
 }
 
-function parsedFileToChapters(data: IUSFMParsedObject): IChapter[] {
+function parsedFileToChapters(data: IDocument): IChapter[] {
   return data.chapters;
 }
 
-function chaptersToVerses(chapters: IChapter[]): (IVerse & { chapterNumber: number })[] {
+type VerseWithChapterNumber = IVerse & { chapterNumber: number };
+function chaptersToVerses(chapters: IChapter[]): VerseWithChapterNumber[] {
   return chapters.flatMap(chapter => {
-    const { chapterNumber, contents } = chapter;
+    const { chapterNumber } = chapter;
 
-    return contents.filter(content => {
-      return content
-        && typeof content === 'object'
-        && 'verseNumber' in content;
-    })
-      .map(content => content as IVerse)
-      .map(verse => {
-        return {
-          ...verse,
-          chapterNumber
-        }
-      });
+    return chapter.verses.map(v => ({
+      ...v,
+      chapterNumber
+    }));
   });
 }
 
-interface IMeta {
-  type: string
-}
-
-interface INormalContent {
-  word: string;
-  meta: IMeta
-}
-function normalizeString(word: string, meta: IMeta = { type: "word" }): INormalContent {
-
-  if (isPunctuation(word)) {
-    return {
-      word,
-      meta: {
-        type: "punctuation"
-      }
-    };
-  } else {
-    return {
-      word,
-      meta: meta
-    };
-  }
-
-}
-
-function normalizeContent(content: OtherElement, meta?: IMeta): INormalContent[] {
-  if (content === null) {
-
-    return [] as INormalContent[];
-
-  } else if (typeof content === 'string') {
-
-    return tokenize(content).map((w) => normalizeString(w, meta));
-
-  } else if (typeof content === 'object' && 'items' in content) {
-
-    const o: { items: OtherElement[] } = content as any;
-    return o.items.flatMap((i) => normalizeContent(i));
-
-  } else if (typeof content === 'object' && 'w' in content) {
-
-    const o: { w: string[], attributes: object[] } = content as any;
-
-    return o.w.flatMap(ws => {
-      const meta: IMeta = {
-        type: "word",
-        ...o.attributes.reduce((acc, o) => ({ ...acc, ...o }), {})
-      };
-
-      return normalizeContent(ws, meta);
-    });
-
-  } else if (typeof content === 'object' && 'add' in content) {
-
-    const o: { add: string[] } = content as any;
-
-    return o.add.flatMap(ws => {
-      const meta: IMeta = {
-        type: "addition"
-      };
-
-      return normalizeContent(ws, meta);
-
-    });
-  }
-
-  return [] as INormalContent[];
-}
-
-function versesToContents(verses: (IVerse & { chapterNumber: number })[]): (INormalContent & { verseNumber: number, chapterNumber: number })[] {
+interface IContent {
+  chapterNumber: number,
+  verseNumber: number,
+  wordNumber: number
+  word: string,
+  meta: object
+};
+function versesToItems(verses: VerseWithChapterNumber[]): IContent[] {
   return verses.flatMap(verse => {
     const { verseNumber, chapterNumber } = verse;
 
-    if (verse.contents) {
-      return verse.contents.flatMap((v) => normalizeContent(v))
-        .map((normalContent: INormalContent) => {
-          return {
-            ...normalContent,
-            verseNumber: parseInt(verseNumber),
-            chapterNumber
-          }
-        });
-    } else {
-      return [];
-    }
+    return verse.items.map((item, wordNumber) => ({
+      word: item.payload,
+      meta: {},
+      verseNumber: parseInt(verseNumber),
+      chapterNumber,
+      wordNumber
+    }));
   });
 }
 
-export function getInsertParameters(collection: ICollectionParameters, data: IUSFMParsedObject): IInsertParameters[] {
+export function getInsertParameters(collection: ICollectionParameters, data: IDocument): IInsertParameters[] {
   const { languageIndex, languageId, collectionName } = collection;
-  const bookName = data.book.bookCode;
+  const bookName = data.title;
 
   const chapters = parsedFileToChapters(data);
   const verses = chaptersToVerses(chapters);
-  const contents = versesToContents(verses);
+  const contents = versesToItems(verses);
 
   return contents.map((content, wordNumber) => {
     return {

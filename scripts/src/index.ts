@@ -1,19 +1,11 @@
 #!/usr/bin/env node
 
-import { readFile } from 'fs/promises';
-import { USFMParser } from 'usfm-grammar';
 import { Pool, PoolClient } from 'pg';
 
 import { getInsertParameters, insertWord } from './db';
+import parseFile from './parser';
 
 import options from './options';
-
-
-async function parseFile(path: string) {
-  const content = await readFile(path, 'utf8');
-  const parser = new USFMParser(content);
-  return parser.toJSON();
-}
 
 async function ingestFile(client: PoolClient, path: string) {
 

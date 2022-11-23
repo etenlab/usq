@@ -8,7 +8,9 @@ const config: CodegenConfig = {
     "types/graphql.d.ts": {
       plugins: ["typescript"],
       config: {
-        noExport: true
+        noExport: true,
+        avoidOptionals: true,
+        typesPrefix: "Gql"
       }
     }
   }

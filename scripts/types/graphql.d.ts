@@ -13,7 +13,7 @@ type Scalars = {
 };
 
 /** Attribute Specification */
-type AttSpec = {
+type GqlAttSpec = {
   /** The attribute key (ie the bit to the left of the equals sign in USX) */
   attKey: Scalars['String'];
   /** The type of attribute, ie what type of thing it's connected to */
@@ -25,16 +25,16 @@ type AttSpec = {
 };
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-type Block = {
+type GqlBlock = {
   __typename?: 'Block';
   /** A list of block grafts for this block */
-  bg: Array<Item>;
+  bg: Array<GqlItem>;
   /** The length in bytes of the succinct representation of bg (block grafts) */
   bgBL: Scalars['Int'];
   /** The number of items in the succinct representation of bg (block grafts) */
   bgL: Scalars['Int'];
   /** The block scope for this block */
-  bs: Item;
+  bs: GqlItem;
   /** The length in bytes of the succinct representation of c (block items) */
   cBL: Scalars['Int'];
   /** The number of items in the succinct representation of c (block items) */
@@ -42,21 +42,21 @@ type Block = {
   /** The block content as a string in a compact eyeballable format */
   dump: Scalars['String'];
   /** A list of included scopes for this block */
-  is: Array<Item>;
+  is: Array<GqlItem>;
   /** The length in bytes of the succinct representation of is (included scopes) */
   isBL: Scalars['Int'];
   /** The number of items in the succinct representation of is (included scopes) */
   isL: Scalars['Int'];
   /** 'Block items grouped by scopes or milestones */
-  itemGroups: Array<Maybe<ItemGroup>>;
+  itemGroups: Array<Maybe<GqlItemGroup>>;
   /** A list of items from the c (content) field of the block */
-  items: Array<Item>;
+  items: Array<GqlItem>;
   /** The value of nextToken at the start of this block */
   nt: Scalars['Int'];
   /** The length in bytes of the succinct representation of nt (nextToken at the start of the block) */
   ntBL: Scalars['Int'];
   /** A list of open scopes for this block */
-  os: Array<Item>;
+  os: Array<GqlItem>;
   /** The length in bytes of the succinct representation of os (open scopes) */
   osBL: Scalars['Int'];
   /** The number of items in the succinct representation of os (open scopes) */
@@ -66,61 +66,61 @@ type Block = {
   /** The text of the block as a single string */
   text: Scalars['String'];
   /** A list of tokens from the c (content) field of the block */
-  tokens: Array<Item>;
+  tokens: Array<GqlItem>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-type BlockItemGroupsArgs = {
-  byMilestones?: InputMaybe<Array<Scalars['String']>>;
-  byScopes?: InputMaybe<Array<Scalars['String']>>;
+type GqlBlockItemGroupsArgs = {
+  byMilestones: InputMaybe<Array<Scalars['String']>>;
+  byScopes: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-type BlockItemsArgs = {
-  anyScope?: InputMaybe<Scalars['Boolean']>;
-  includeContext?: InputMaybe<Scalars['Boolean']>;
-  withScopes?: InputMaybe<Array<Scalars['String']>>;
-  withScriptureCV?: InputMaybe<Scalars['String']>;
+type GqlBlockItemsArgs = {
+  anyScope: InputMaybe<Scalars['Boolean']>;
+  includeContext: InputMaybe<Scalars['Boolean']>;
+  withScopes: InputMaybe<Array<Scalars['String']>>;
+  withScriptureCV: InputMaybe<Scalars['String']>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-type BlockScopeLabelsArgs = {
-  startsWith?: InputMaybe<Array<Scalars['String']>>;
+type GqlBlockScopeLabelsArgs = {
+  startsWith: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-type BlockTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
-  withScriptureCV?: InputMaybe<Scalars['String']>;
+type GqlBlockTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
+  withScriptureCV: InputMaybe<Scalars['String']>;
 };
 
 
 /** Part of a sequence, roughly equivalent to a USFM paragraph */
-type BlockTokensArgs = {
-  anyScope?: InputMaybe<Scalars['Boolean']>;
-  includeContext?: InputMaybe<Scalars['Boolean']>;
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withMatchingChars?: InputMaybe<Array<Scalars['String']>>;
-  withScopes?: InputMaybe<Array<Scalars['String']>>;
-  withScriptureCV?: InputMaybe<Scalars['String']>;
-  withSubTypes?: InputMaybe<Array<Scalars['String']>>;
+type GqlBlockTokensArgs = {
+  anyScope: InputMaybe<Scalars['Boolean']>;
+  includeContext: InputMaybe<Scalars['Boolean']>;
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withMatchingChars: InputMaybe<Array<Scalars['String']>>;
+  withScopes: InputMaybe<Array<Scalars['String']>>;
+  withScriptureCV: InputMaybe<Scalars['String']>;
+  withSubTypes: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A collection of documents that share the same set of selector values */
-type DocSet = {
+type GqlDocSet = {
   __typename?: 'DocSet';
   /** A document in the docSet, if present */
-  document?: Maybe<Document>;
+  document: Maybe<GqlDocument>;
   /** The documents in the docSet */
-  documents: Array<Document>;
+  documents: Array<GqlDocument>;
   /** The internal index number corresponding to a string in a given docSet enum */
   enumIndexForString: Scalars['Int'];
   /** Information about internal indexes matching the case-insensitive regex in a given docSet enum */
-  enumRegexIndexesForString: Array<RegexIndex>;
+  enumRegexIndexesForString: Array<GqlRegexIndex>;
   /** Whether the docSet has versification information loaded */
   hasMapping: Scalars['Boolean'];
   /** Whether or not the docSet has the specified tag */
@@ -132,11 +132,11 @@ type DocSet = {
   /** A selector for this docSet */
   selector: Scalars['String'];
   /** The selectors of the docSet */
-  selectors: Array<KeyValue>;
+  selectors: Array<GqlKeyValue>;
   /** A list of the tags of this docSet */
   tags: Array<Scalars['String']>;
   /** A list of the tags of this docSet as key/value tuples */
-  tagsKv: Array<KeyValue>;
+  tagsKv: Array<GqlKeyValue>;
   /** A list of unique characters in the docSet */
   uniqueChars: Array<Scalars['String']>;
   /** A string containing the unique characters in the docSet */
@@ -147,282 +147,282 @@ type DocSet = {
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetDocumentArgs = {
+type GqlDocSetDocumentArgs = {
   bookCode: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetDocumentsArgs = {
-  allChars?: InputMaybe<Scalars['Boolean']>;
-  allScopes?: InputMaybe<Scalars['Boolean']>;
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  sortedBy?: InputMaybe<Scalars['String']>;
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withHeaderValues?: InputMaybe<Array<InputKeyValue>>;
-  withMatchingChars?: InputMaybe<Array<Scalars['String']>>;
-  withScopes?: InputMaybe<Array<Scalars['String']>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocSetDocumentsArgs = {
+  allChars: InputMaybe<Scalars['Boolean']>;
+  allScopes: InputMaybe<Scalars['Boolean']>;
+  ids: InputMaybe<Array<Scalars['String']>>;
+  sortedBy: InputMaybe<Scalars['String']>;
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withHeaderValues: InputMaybe<Array<GqlInputKeyValue>>;
+  withMatchingChars: InputMaybe<Array<Scalars['String']>>;
+  withScopes: InputMaybe<Array<Scalars['String']>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetEnumIndexForStringArgs = {
+type GqlDocSetEnumIndexForStringArgs = {
   enumType: Scalars['String'];
   searchString: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetEnumRegexIndexesForStringArgs = {
+type GqlDocSetEnumRegexIndexesForStringArgs = {
   enumType: Scalars['String'];
   searchRegex: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetHasTagArgs = {
+type GqlDocSetHasTagArgs = {
   tagName: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetSelectorArgs = {
+type GqlDocSetSelectorArgs = {
   id: Scalars['String'];
 };
 
 
 /** A collection of documents that share the same set of selector values */
-type DocSetWordLikesArgs = {
-  coerceCase?: InputMaybe<Scalars['String']>;
+type GqlDocSetWordLikesArgs = {
+  coerceCase: InputMaybe<Scalars['String']>;
 };
 
 /** A document, typically corresponding to USFM for one book */
-type Document = {
+type GqlDocument = {
   __typename?: 'Document';
   /** The content of a chapter */
-  cIndex: CIndex;
+  cIndex: GqlCIndex;
   /** The content of the main sequence indexed by chapter */
-  cIndexes: Array<Maybe<CIndex>>;
+  cIndexes: Array<Maybe<GqlCIndex>>;
   /** Content for a Scripture reference within this document, using local versification */
-  cv: Array<ItemGroup>;
+  cv: Array<GqlItemGroup>;
   /** The content of the specified chapter indexed by chapterVerse */
-  cvIndex: CvIndex;
+  cvIndex: GqlCvIndex;
   /** The content of the main sequence indexed by chapterVerse */
-  cvIndexes: Array<Maybe<CvIndex>>;
+  cvIndexes: Array<Maybe<GqlCvIndex>>;
   /** Verses matching the arguments */
-  cvMatching: Array<ItemGroup>;
+  cvMatching: Array<GqlItemGroup>;
   /** What's previous and next with respect to the specified verse */
-  cvNavigation?: Maybe<CvNavigation>;
+  cvNavigation: Maybe<GqlCvNavigation>;
   /** The id of the docSet to which this document belongs */
   docSetId: Scalars['String'];
   /** 'Whether or not the document has the specified tag */
   hasTag: Scalars['Boolean'];
   /** One USFM header */
-  header?: Maybe<Scalars['String']>;
+  header: Maybe<Scalars['String']>;
   /** USFM header information such as TOC */
-  headers: Array<KeyValue>;
+  headers: Array<GqlKeyValue>;
   /** The id of the document */
   id: Scalars['String'];
   /** A parsed version of the id header */
-  idParts: IdParts;
+  idParts: GqlIdParts;
   /** The key-value sequence with the specified id */
-  kvSequence?: Maybe<KvSequence>;
+  kvSequence: Maybe<GqlKvSequence>;
   /** A list of key-value sequences for this document */
-  kvSequences: Array<KvSequence>;
+  kvSequences: Array<GqlKvSequence>;
   /** The blocks of the main sequence */
-  mainBlocks: Array<Block>;
+  mainBlocks: Array<GqlBlock>;
   /** The items for each block of the main sequence */
-  mainBlocksItems: Array<Array<Item>>;
+  mainBlocksItems: Array<Array<GqlItem>>;
   /** The text for each block of the main sequence */
   mainBlocksText: Array<Scalars['String']>;
   /** The tokens for each block of the main sequence */
-  mainBlocksTokens: Array<Array<Item>>;
+  mainBlocksTokens: Array<Array<GqlItem>>;
   /** The main sequence */
-  mainSequence: Sequence;
+  mainSequence: GqlSequence;
   /** The text for the main sequence */
   mainText: Scalars['String'];
   /** Content for a Scripture reference within this document, using the versification of the specified docSet */
-  mappedCv: Array<ItemGroup>;
+  mappedCv: Array<GqlItemGroup>;
   /** Content for each verse of a chapter within this document, using the versification of the specified docSet */
-  mappedCvs: Array<Array<ItemGroup>>;
+  mappedCvs: Array<Array<GqlItemGroup>>;
   /** The number of sequences */
   nSequences: Scalars['Int'];
   /** A string of PERF JSON for this document */
   perf: Scalars['String'];
   /** The sequence with the specified id */
-  sequence?: Maybe<Sequence>;
+  sequence: Maybe<GqlSequence>;
   /** A list of sequences for this document */
-  sequences: Array<Sequence>;
+  sequences: Array<GqlSequence>;
   /** The table sequence with the specified id */
-  tableSequence?: Maybe<TableSequence>;
+  tableSequence: Maybe<GqlTableSequence>;
   /** A list of table sequences for this document */
-  tableSequences: Array<TableSequence>;
+  tableSequences: Array<GqlTableSequence>;
   /** A list of the tags of this document */
   tags: Array<Scalars['String']>;
   /** A list of the tags of this document as key/value tuples */
-  tagsKv: Array<KeyValue>;
+  tagsKv: Array<GqlKeyValue>;
   /** A list of text (ie non-table, non-tree, non-kv) sequences for this document */
-  textSequences: Array<Sequence>;
+  textSequences: Array<GqlSequence>;
   /** The tree sequence with the specified id */
-  treeSequence?: Maybe<TreeSequence>;
+  treeSequence: Maybe<GqlTreeSequence>;
   /** A list of tree sequences for this document */
-  treeSequences: Array<TreeSequence>;
+  treeSequences: Array<GqlTreeSequence>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentCIndexArgs = {
+type GqlDocumentCIndexArgs = {
   chapter: Scalars['Int'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentCvArgs = {
-  chapter?: InputMaybe<Scalars['String']>;
-  chapterVerses?: InputMaybe<Scalars['String']>;
-  includeContext?: InputMaybe<Scalars['Boolean']>;
-  verses?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentCvArgs = {
+  chapter: InputMaybe<Scalars['String']>;
+  chapterVerses: InputMaybe<Scalars['String']>;
+  includeContext: InputMaybe<Scalars['Boolean']>;
+  verses: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentCvIndexArgs = {
+type GqlDocumentCvIndexArgs = {
   chapter: Scalars['Int'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentCvMatchingArgs = {
-  allChars?: InputMaybe<Scalars['Boolean']>;
-  allScopes?: InputMaybe<Scalars['Boolean']>;
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withMatchingChars?: InputMaybe<Array<Scalars['String']>>;
-  withScopes?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentCvMatchingArgs = {
+  allChars: InputMaybe<Scalars['Boolean']>;
+  allScopes: InputMaybe<Scalars['Boolean']>;
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withMatchingChars: InputMaybe<Array<Scalars['String']>>;
+  withScopes: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentCvNavigationArgs = {
+type GqlDocumentCvNavigationArgs = {
   chapter: Scalars['String'];
   verse: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentHasTagArgs = {
+type GqlDocumentHasTagArgs = {
   tagName: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentHeaderArgs = {
+type GqlDocumentHeaderArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentKvSequenceArgs = {
+type GqlDocumentKvSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentKvSequencesArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentKvSequencesArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentMainBlocksTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlDocumentMainBlocksTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentMainTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlDocumentMainTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentMappedCvArgs = {
+type GqlDocumentMappedCvArgs = {
   chapter: Scalars['String'];
-  includeContext?: InputMaybe<Scalars['Boolean']>;
+  includeContext: InputMaybe<Scalars['Boolean']>;
   mappedDocSetId: Scalars['String'];
   verses: Array<Scalars['String']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentMappedCvsArgs = {
+type GqlDocumentMappedCvsArgs = {
   chapter: Scalars['String'];
-  includeContext?: InputMaybe<Scalars['Boolean']>;
+  includeContext: InputMaybe<Scalars['Boolean']>;
   mappedDocSetId: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentPerfArgs = {
-  indent?: InputMaybe<Scalars['Int']>;
+type GqlDocumentPerfArgs = {
+  indent: InputMaybe<Scalars['Int']>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentSequenceArgs = {
+type GqlDocumentSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentSequencesArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  types?: InputMaybe<Array<Scalars['String']>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentSequencesArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  types: InputMaybe<Array<Scalars['String']>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentTableSequenceArgs = {
+type GqlDocumentTableSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentTableSequencesArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentTableSequencesArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentTextSequencesArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentTextSequencesArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentTreeSequenceArgs = {
+type GqlDocumentTreeSequenceArgs = {
   id: Scalars['String'];
 };
 
 
 /** A document, typically corresponding to USFM for one book */
-type DocumentTreeSequencesArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlDocumentTreeSequencesArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Item for arguments */
-type InputItemObject = {
+type GqlInputItemObject = {
   /** The content of the item (the text for tokens, the label for scopes and the sequence id for grafts) */
   payload: Scalars['String'];
   /** The type-dependent subtype of the item */
@@ -432,7 +432,7 @@ type InputItemObject = {
 };
 
 /** Input Key/Value Object */
-type InputKeyValue = {
+type GqlInputKeyValue = {
   /** The key */
   key: Scalars['String'];
   /** The value */
@@ -440,14 +440,14 @@ type InputKeyValue = {
 };
 
 /** Item */
-type Item = {
+type GqlItem = {
   __typename?: 'Item';
   /** The content of the item (the text for tokens, the label for scopes and the sequence id for grafts) */
   payload: Scalars['String'];
   /** If 'includeContext' was selected, and for tokens, the index of the token from the start of the sequence */
-  position?: Maybe<Scalars['Int']>;
+  position: Maybe<Scalars['Int']>;
   /** If 'includeContext' was selected, a list of scopes that are open around the item */
-  scopes?: Maybe<Array<Scalars['String']>>;
+  scopes: Maybe<Array<Scalars['String']>>;
   /** The type-dependent subtype of the item */
   subType: Scalars['String'];
   /** The basic item type (token, scope or graft) */
@@ -456,62 +456,62 @@ type Item = {
 
 
 /** Item */
-type ItemPayloadArgs = {
-  excludeChars?: InputMaybe<Array<Scalars['String']>>;
-  includeChars?: InputMaybe<Array<Scalars['String']>>;
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlItemPayloadArgs = {
+  excludeChars: InputMaybe<Array<Scalars['String']>>;
+  includeChars: InputMaybe<Array<Scalars['String']>>;
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Item */
-type ItemPositionArgs = {
-  startsWith?: InputMaybe<Array<Scalars['String']>>;
+type GqlItemPositionArgs = {
+  startsWith: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** Item */
-type ItemScopesArgs = {
-  startsWith?: InputMaybe<Array<Scalars['String']>>;
+type GqlItemScopesArgs = {
+  startsWith: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A collection of items, with scope context */
-type ItemGroup = {
+type GqlItemGroup = {
   __typename?: 'ItemGroup';
   /** The itemGroup content as a string in a compact eyeballable format */
   dump: Scalars['String'];
   /** A list of scopes from the items of the itemGroup */
   includedScopes: Array<Scalars['String']>;
   /** Items for this itemGroup */
-  items: Array<Item>;
+  items: Array<GqlItem>;
   /** The labels of scopes that were open at the beginning of the itemGroup */
   scopeLabels: Array<Scalars['String']>;
   /** The text of the itemGroup as a single string */
   text: Scalars['String'];
   /** Tokens for this itemGroup */
-  tokens: Array<Item>;
+  tokens: Array<GqlItem>;
 };
 
 
 /** A collection of items, with scope context */
-type ItemGroupScopeLabelsArgs = {
-  startsWith?: InputMaybe<Array<Scalars['String']>>;
+type GqlItemGroupScopeLabelsArgs = {
+  startsWith: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A collection of items, with scope context */
-type ItemGroupTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlItemGroupTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A collection of items, with scope context */
-type ItemGroupTokensArgs = {
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withSubTypes?: InputMaybe<Array<Scalars['String']>>;
+type GqlItemGroupTokensArgs = {
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withSubTypes: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Key/Regex tuple */
-type KeyMatches = {
+type GqlKeyMatches = {
   /** The key */
   key: Scalars['String'];
   /** The regex to match */
@@ -519,7 +519,7 @@ type KeyMatches = {
 };
 
 /** Key/Value tuple */
-type KeyValue = {
+type GqlKeyValue = {
   __typename?: 'KeyValue';
   /** The key */
   key: Scalars['String'];
@@ -528,31 +528,31 @@ type KeyValue = {
 };
 
 /** Input Key/Values Object */
-type KeyValues = {
+type GqlKeyValues = {
   /** The key */
   key: Scalars['String'];
   /** The values */
   values: Array<Scalars['String']>;
 };
 
-type Mutation = {
+type GqlMutation = {
   __typename?: 'Mutation';
   /** Add one or more tags to a docSet, if they are not already present */
   addDocSetTags: Array<Scalars['String']>;
   /** Adds a document which will be assigned to an existing or new docSet on the basis of the specified selectors */
   addDocument: Scalars['Boolean'];
   /** Add one or more tags to a document, if they are not already present */
-  addDocumentTags?: Maybe<Array<Scalars['String']>>;
+  addDocumentTags: Maybe<Array<Scalars['String']>>;
   /** Add one or more tags to a sequence, if they are not already present */
-  addSequenceTags?: Maybe<Array<Scalars['String']>>;
+  addSequenceTags: Maybe<Array<Scalars['String']>>;
   /** Deletes a block from a sequence */
-  deleteBlock?: Maybe<Scalars['Boolean']>;
+  deleteBlock: Maybe<Scalars['Boolean']>;
   /** Deletes a docSet */
-  deleteDocSet?: Maybe<Scalars['Boolean']>;
+  deleteDocSet: Maybe<Scalars['Boolean']>;
   /** Deletes a document */
-  deleteDocument?: Maybe<Scalars['Boolean']>;
+  deleteDocument: Maybe<Scalars['Boolean']>;
   /** Deletes a sequence from a document */
-  deleteSequence?: Maybe<Scalars['Boolean']>;
+  deleteSequence: Maybe<Scalars['Boolean']>;
   /** Garbage collects unused sequences within a document. (You probably don\'t need to do this.) */
   gcSequences: Scalars['Boolean'];
   /** Adds a new block to a sequence */
@@ -562,11 +562,11 @@ type Mutation = {
   /** Explicitly rebuild the text lookup tables for a docSet. (You probably don't need to do this) */
   rehashDocSet: Scalars['Boolean'];
   /** Remove one or more tags from a docSet, if they are present */
-  removeDocSetTags?: Maybe<Array<Scalars['String']>>;
+  removeDocSetTags: Maybe<Array<Scalars['String']>>;
   /** Remove one or more tags from a document, if they are present */
-  removeDocumentTags?: Maybe<Array<Scalars['String']>>;
+  removeDocumentTags: Maybe<Array<Scalars['String']>>;
   /** Remove one or more tags from a sequence, if they are present */
-  removeSequenceTags?: Maybe<Array<Scalars['String']>>;
+  removeSequenceTags: Maybe<Array<Scalars['String']>>;
   /** Adds verse mapping tables to the documents in a docSet, where the verse mapping may be provided in legacy .vrs or JSON format */
   setVerseMapping: Scalars['Boolean'];
   /** Removes verse mapping tables from the documents in a docSet */
@@ -578,28 +578,28 @@ type Mutation = {
 };
 
 
-type MutationAddDocSetTagsArgs = {
+type GqlMutationAddDocSetTagsArgs = {
   docSetId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-type MutationAddDocumentArgs = {
+type GqlMutationAddDocumentArgs = {
   content: Scalars['String'];
   contentType: Scalars['String'];
-  selectors: Array<InputKeyValue>;
-  tags?: InputMaybe<Array<Scalars['String']>>;
+  selectors: Array<GqlInputKeyValue>;
+  tags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
-type MutationAddDocumentTagsArgs = {
+type GqlMutationAddDocumentTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-type MutationAddSequenceTagsArgs = {
+type GqlMutationAddSequenceTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
@@ -607,37 +607,37 @@ type MutationAddSequenceTagsArgs = {
 };
 
 
-type MutationDeleteBlockArgs = {
+type GqlMutationDeleteBlockArgs = {
   blockN: Scalars['Int'];
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
 };
 
 
-type MutationDeleteDocSetArgs = {
+type GqlMutationDeleteDocSetArgs = {
   docSetId: Scalars['String'];
 };
 
 
-type MutationDeleteDocumentArgs = {
+type GqlMutationDeleteDocumentArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
 };
 
 
-type MutationDeleteSequenceArgs = {
+type GqlMutationDeleteSequenceArgs = {
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
 };
 
 
-type MutationGcSequencesArgs = {
+type GqlMutationGcSequencesArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
 };
 
 
-type MutationNewBlockArgs = {
+type GqlMutationNewBlockArgs = {
   blockN: Scalars['Int'];
   blockScope: Scalars['String'];
   documentId: Scalars['String'];
@@ -645,34 +645,34 @@ type MutationNewBlockArgs = {
 };
 
 
-type MutationNewSequenceArgs = {
-  blocksSpec?: InputMaybe<Array<InputBlockSpec>>;
+type GqlMutationNewSequenceArgs = {
+  blocksSpec: InputMaybe<Array<GqlInputBlockSpec>>;
   documentId: Scalars['String'];
-  graftToMain?: InputMaybe<Scalars['Boolean']>;
-  tags?: InputMaybe<Array<Scalars['String']>>;
+  graftToMain: InputMaybe<Scalars['Boolean']>;
+  tags: InputMaybe<Array<Scalars['String']>>;
   type: Scalars['String'];
 };
 
 
-type MutationRehashDocSetArgs = {
+type GqlMutationRehashDocSetArgs = {
   docSetId: Scalars['String'];
 };
 
 
-type MutationRemoveDocSetTagsArgs = {
+type GqlMutationRemoveDocSetTagsArgs = {
   docSetId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-type MutationRemoveDocumentTagsArgs = {
+type GqlMutationRemoveDocumentTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   tags: Array<InputMaybe<Scalars['String']>>;
 };
 
 
-type MutationRemoveSequenceTagsArgs = {
+type GqlMutationRemoveSequenceTagsArgs = {
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
   sequenceId: Scalars['String'];
@@ -680,47 +680,47 @@ type MutationRemoveSequenceTagsArgs = {
 };
 
 
-type MutationSetVerseMappingArgs = {
+type GqlMutationSetVerseMappingArgs = {
   docSetId: Scalars['String'];
-  jsonSource?: InputMaybe<Scalars['String']>;
-  vrsSource?: InputMaybe<Scalars['String']>;
+  jsonSource: InputMaybe<Scalars['String']>;
+  vrsSource: InputMaybe<Scalars['String']>;
 };
 
 
-type MutationUnsetVerseMappingArgs = {
+type GqlMutationUnsetVerseMappingArgs = {
   docSetId: Scalars['String'];
 };
 
 
-type MutationUpdateAllBlocksArgs = {
-  blocksSpec: Array<InputBlockSpec>;
+type GqlMutationUpdateAllBlocksArgs = {
+  blocksSpec: Array<GqlInputBlockSpec>;
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
-  sequenceId?: InputMaybe<Scalars['String']>;
+  sequenceId: InputMaybe<Scalars['String']>;
 };
 
 
-type MutationUpdateItemsArgs = {
-  blockGrafts?: InputMaybe<Array<InputItemObject>>;
+type GqlMutationUpdateItemsArgs = {
+  blockGrafts: InputMaybe<Array<GqlInputItemObject>>;
   blockPosition: Scalars['Int'];
-  blockScope?: InputMaybe<InputItemObject>;
+  blockScope: InputMaybe<GqlInputItemObject>;
   docSetId: Scalars['String'];
   documentId: Scalars['String'];
-  items?: InputMaybe<Array<InputItemObject>>;
-  sequenceId?: InputMaybe<Scalars['String']>;
+  items: InputMaybe<Array<GqlInputItemObject>>;
+  sequenceId: InputMaybe<Scalars['String']>;
 };
 
 /** The top level of Proskomma queries */
-type Query = {
+type GqlQuery = {
   __typename?: 'Query';
   /** The docSet with the specified id */
-  docSet?: Maybe<DocSet>;
+  docSet: Maybe<GqlDocSet>;
   /** The docSets in the processor */
-  docSets: Array<DocSet>;
+  docSets: Array<GqlDocSet>;
   /** The document with the specified id, or the specified docSet and withBook */
-  document?: Maybe<Document>;
+  document: Maybe<GqlDocument>;
   /** The documents in the processor */
-  documents: Array<Document>;
+  documents: Array<GqlDocument>;
   /** The id of the processor, which is different for each Proskomma instance */
   id: Scalars['String'];
   /** The number of docSets */
@@ -732,55 +732,55 @@ type Query = {
   /** A string describing the processor class */
   processor: Scalars['String'];
   /** The selectors used to define docSets */
-  selectors: Array<SelectorSpec>;
+  selectors: Array<GqlSelectorSpec>;
 };
 
 
 /** The top level of Proskomma queries */
-type QueryDocSetArgs = {
+type GqlQueryDocSetArgs = {
   id: Scalars['String'];
 };
 
 
 /** The top level of Proskomma queries */
-type QueryDocSetsArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  withBook?: InputMaybe<Scalars['String']>;
-  withSelectors?: InputMaybe<Array<InputKeyValue>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlQueryDocSetsArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  withBook: InputMaybe<Scalars['String']>;
+  withSelectors: InputMaybe<Array<GqlInputKeyValue>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** The top level of Proskomma queries */
-type QueryDocumentArgs = {
-  docSetId?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['String']>;
-  withBook?: InputMaybe<Scalars['String']>;
+type GqlQueryDocumentArgs = {
+  docSetId: InputMaybe<Scalars['String']>;
+  id: InputMaybe<Scalars['String']>;
+  withBook: InputMaybe<Scalars['String']>;
 };
 
 
 /** The top level of Proskomma queries */
-type QueryDocumentsArgs = {
-  ids?: InputMaybe<Array<Scalars['String']>>;
-  sortedBy?: InputMaybe<Scalars['String']>;
-  withBook?: InputMaybe<Scalars['String']>;
-  withHeaderValues?: InputMaybe<Array<InputKeyValue>>;
-  withTags?: InputMaybe<Array<Scalars['String']>>;
-  withoutTags?: InputMaybe<Array<Scalars['String']>>;
+type GqlQueryDocumentsArgs = {
+  ids: InputMaybe<Array<Scalars['String']>>;
+  sortedBy: InputMaybe<Scalars['String']>;
+  withBook: InputMaybe<Scalars['String']>;
+  withHeaderValues: InputMaybe<Array<GqlInputKeyValue>>;
+  withTags: InputMaybe<Array<Scalars['String']>>;
+  withoutTags: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A contiguous flow of content */
-type Sequence = {
+type GqlSequence = {
   __typename?: 'Sequence';
   /** The blocks in the sequence */
-  blocks: Array<Block>;
+  blocks: Array<GqlBlock>;
   /** The items for each block in the sequence */
-  blocksItems?: Maybe<Array<Array<Item>>>;
+  blocksItems: Maybe<Array<Array<GqlItem>>>;
   /** The text for each block in the sequence */
-  blocksText?: Maybe<Array<Scalars['String']>>;
+  blocksText: Maybe<Array<Scalars['String']>>;
   /** The tokens for each block in the sequence */
-  blocksTokens?: Maybe<Array<Array<Item>>>;
+  blocksTokens: Maybe<Array<Array<GqlItem>>>;
   /** Returns true if a main sequence contains the specified tokens */
   hasChars: Scalars['Boolean'];
   /** Returns true if a main sequence contains a match for specified regexes */
@@ -790,13 +790,13 @@ type Sequence = {
   /** The id of the sequence */
   id: Scalars['String'];
   /** Sequence content grouped by scopes or milestones */
-  itemGroups: Array<ItemGroup>;
+  itemGroups: Array<GqlItemGroup>;
   /** The number of blocks in the sequence */
   nBlocks: Scalars['Int'];
   /** A list of the tags of this sequence */
   tags: Array<Scalars['String']>;
   /** A list of the tags of this sequence as key/value tuples */
-  tagsKv: Array<KeyValue>;
+  tagsKv: Array<GqlKeyValue>;
   /** The text for the sequence */
   text: Scalars['String'];
   /** The type of the sequence (main, heading...) */
@@ -807,280 +807,280 @@ type Sequence = {
 
 
 /** A contiguous flow of content */
-type SequenceBlocksArgs = {
-  allAtts?: InputMaybe<Scalars['Boolean']>;
-  allChars?: InputMaybe<Scalars['Boolean']>;
-  attSpecs?: InputMaybe<Array<Array<AttSpec>>>;
-  attValues?: InputMaybe<Array<Array<Scalars['String']>>>;
-  positions?: InputMaybe<Array<Scalars['Int']>>;
-  withBlockScope?: InputMaybe<Scalars['String']>;
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withMatchingChars?: InputMaybe<Array<Scalars['String']>>;
-  withScopes?: InputMaybe<Array<Scalars['String']>>;
-  withScriptureCV?: InputMaybe<Scalars['String']>;
+type GqlSequenceBlocksArgs = {
+  allAtts: InputMaybe<Scalars['Boolean']>;
+  allChars: InputMaybe<Scalars['Boolean']>;
+  attSpecs: InputMaybe<Array<Array<GqlAttSpec>>>;
+  attValues: InputMaybe<Array<Array<Scalars['String']>>>;
+  positions: InputMaybe<Array<Scalars['Int']>>;
+  withBlockScope: InputMaybe<Scalars['String']>;
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withMatchingChars: InputMaybe<Array<Scalars['String']>>;
+  withScopes: InputMaybe<Array<Scalars['String']>>;
+  withScriptureCV: InputMaybe<Scalars['String']>;
 };
 
 
 /** A contiguous flow of content */
-type SequenceBlocksTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlSequenceBlocksTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A contiguous flow of content */
-type SequenceHasCharsArgs = {
-  allChars?: InputMaybe<Scalars['Boolean']>;
-  chars?: InputMaybe<Array<Scalars['String']>>;
+type GqlSequenceHasCharsArgs = {
+  allChars: InputMaybe<Scalars['Boolean']>;
+  chars: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A contiguous flow of content */
-type SequenceHasMatchingCharsArgs = {
-  allChars?: InputMaybe<Scalars['Boolean']>;
-  chars?: InputMaybe<Array<Scalars['String']>>;
+type GqlSequenceHasMatchingCharsArgs = {
+  allChars: InputMaybe<Scalars['Boolean']>;
+  chars: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A contiguous flow of content */
-type SequenceHasTagArgs = {
+type GqlSequenceHasTagArgs = {
   tagName: Scalars['String'];
 };
 
 
 /** A contiguous flow of content */
-type SequenceItemGroupsArgs = {
-  byMilestones?: InputMaybe<Array<Scalars['String']>>;
-  byScopes?: InputMaybe<Array<Scalars['String']>>;
+type GqlSequenceItemGroupsArgs = {
+  byMilestones: InputMaybe<Array<Scalars['String']>>;
+  byScopes: InputMaybe<Array<Scalars['String']>>;
 };
 
 
 /** A contiguous flow of content */
-type SequenceTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlSequenceTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A contiguous flow of content */
-type SequenceWordLikesArgs = {
-  coerceCase?: InputMaybe<Scalars['String']>;
+type GqlSequenceWordLikesArgs = {
+  coerceCase: InputMaybe<Scalars['String']>;
 };
 
 /** A chapter index entry */
-type CIndex = {
+type GqlCIndex = {
   __typename?: 'cIndex';
   /** The chapter number */
   chapter: Scalars['Int'];
   /** The items as a string in a compact eyeballable format */
-  dumpItems?: Maybe<Scalars['String']>;
+  dumpItems: Maybe<Scalars['String']>;
   /** The zero-indexed number of the block where the chapter ends */
-  endBlock?: Maybe<Scalars['Int']>;
+  endBlock: Maybe<Scalars['Int']>;
   /** The zero-indexed position of the item where the chapter ends */
-  endItem?: Maybe<Scalars['Int']>;
+  endItem: Maybe<Scalars['Int']>;
   /** A list of items for this chapter */
-  items: Array<Maybe<Item>>;
+  items: Array<Maybe<GqlItem>>;
   /** The value of nextToken at the beginning of the chapter */
-  nextToken?: Maybe<Scalars['Int']>;
+  nextToken: Maybe<Scalars['Int']>;
   /** The zero-indexed number of the block where the chapter starts */
-  startBlock?: Maybe<Scalars['Int']>;
+  startBlock: Maybe<Scalars['Int']>;
   /** The zero-indexed position of the item where the chapter starts */
-  startItem?: Maybe<Scalars['Int']>;
+  startItem: Maybe<Scalars['Int']>;
   /** The text of the chapter as a single string */
   text: Scalars['String'];
   /** A list of tokens for this chapter */
-  tokens: Array<Maybe<Item>>;
+  tokens: Array<Maybe<GqlItem>>;
 };
 
 
 /** A chapter index entry */
-type CIndexItemsArgs = {
-  includeContext?: InputMaybe<Scalars['Boolean']>;
+type GqlCIndexItemsArgs = {
+  includeContext: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A chapter index entry */
-type CIndexTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlCIndexTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** A chapter index entry */
-type CIndexTokensArgs = {
-  includeContext?: InputMaybe<Scalars['Boolean']>;
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withSubTypes?: InputMaybe<Array<Scalars['String']>>;
+type GqlCIndexTokensArgs = {
+  includeContext: InputMaybe<Scalars['Boolean']>;
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withSubTypes: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A table cell */
-type Cell = {
+type GqlCell = {
   __typename?: 'cell';
   /** The column numbers */
   columns: Array<Scalars['Int']>;
   /** A list of items from the c (content) field of the cell */
-  items: Array<Item>;
+  items: Array<GqlItem>;
   /** The row numbers */
   rows: Array<Scalars['Int']>;
   /** The text of the cell as a single string */
   text: Scalars['String'];
   /** A list of tokens from the c (content) field of the cell */
-  tokens: Array<Item>;
+  tokens: Array<GqlItem>;
 };
 
 
 /** A table cell */
-type CellTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlCellTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 /** A chapter-verse reference */
-type Cv = {
+type GqlCv = {
   __typename?: 'cv';
   /** The chapter number */
-  chapter?: Maybe<Scalars['Int']>;
+  chapter: Maybe<Scalars['Int']>;
   /** The verse number */
-  verse?: Maybe<Scalars['Int']>;
+  verse: Maybe<Scalars['Int']>;
 };
 
 /** A chapterVerse index entry */
-type CvIndex = {
+type GqlCvIndex = {
   __typename?: 'cvIndex';
   /** The chapter number */
   chapter: Scalars['Int'];
   /** A list of verse number and range information, organized by verse number */
-  verseNumbers?: Maybe<Array<VerseNumber>>;
+  verseNumbers: Maybe<Array<GqlVerseNumber>>;
   /** A list of verse number and range information, organized by verse range */
-  verseRanges?: Maybe<Array<VerseRange>>;
+  verseRanges: Maybe<Array<GqlVerseRange>>;
   /** Information about the verses in the chapter */
-  verses?: Maybe<Array<Maybe<CvVerses>>>;
+  verses: Maybe<Array<Maybe<GqlCvVerses>>>;
 };
 
 /** Various answers to 'previous' and 'next' with respect to a verse */
-type CvNavigation = {
+type GqlCvNavigation = {
   __typename?: 'cvNavigation';
   /** The next chapter number (as a string) */
-  nextChapter?: Maybe<Scalars['String']>;
+  nextChapter: Maybe<Scalars['String']>;
   /** The verse number for the next verse */
-  nextVerse?: Maybe<Cv>;
+  nextVerse: Maybe<GqlCv>;
   /** The verse number for the next verse range */
-  nextVerseRangeVerse?: Maybe<Cv>;
+  nextVerseRangeVerse: Maybe<GqlCv>;
   /** The previous chapter number (as a string) */
-  previousChapter?: Maybe<Scalars['String']>;
+  previousChapter: Maybe<Scalars['String']>;
   /** The verse number for the previous verse */
-  previousVerse?: Maybe<Cv>;
+  previousVerse: Maybe<GqlCv>;
   /** The verse number for the previous verse range */
-  previousVerseRangeVerse?: Maybe<Cv>;
+  previousVerseRangeVerse: Maybe<GqlCv>;
 };
 
-type CvVerseElement = {
+type GqlCvVerseElement = {
   __typename?: 'cvVerseElement';
   /** The items as a string in a compact eyeballable format */
-  dumpItems?: Maybe<Scalars['String']>;
+  dumpItems: Maybe<Scalars['String']>;
   /** The zero-indexed number of the block where the verse ends */
-  endBlock?: Maybe<Scalars['Int']>;
+  endBlock: Maybe<Scalars['Int']>;
   /** The zero-indexed position of the item where the verse ends */
-  endItem?: Maybe<Scalars['Int']>;
+  endItem: Maybe<Scalars['Int']>;
   /** A list of items for this verse */
-  items: Array<Maybe<Item>>;
+  items: Array<Maybe<GqlItem>>;
   /** The value of nextToken at the beginning of the verse */
-  nextToken?: Maybe<Scalars['Int']>;
+  nextToken: Maybe<Scalars['Int']>;
   /** The zero-indexed number of the block where the verse starts */
-  startBlock?: Maybe<Scalars['Int']>;
+  startBlock: Maybe<Scalars['Int']>;
   /** The zero-indexed position of the item where the verse starts */
-  startItem?: Maybe<Scalars['Int']>;
+  startItem: Maybe<Scalars['Int']>;
   /** The text of the verse as a single string */
   text: Scalars['String'];
   /** A list of tokens for this verse */
-  tokens: Array<Maybe<Item>>;
+  tokens: Array<Maybe<GqlItem>>;
   /** The verse range for this verse as it would be printed in a Bible */
-  verseRange?: Maybe<Scalars['String']>;
+  verseRange: Maybe<Scalars['String']>;
 };
 
 
-type CvVerseElementItemsArgs = {
-  includeContext?: InputMaybe<Scalars['Boolean']>;
+type GqlCvVerseElementItemsArgs = {
+  includeContext: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type CvVerseElementTextArgs = {
-  normalizeSpace?: InputMaybe<Scalars['Boolean']>;
+type GqlCvVerseElementTextArgs = {
+  normalizeSpace: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type CvVerseElementTokensArgs = {
-  includeContext?: InputMaybe<Scalars['Boolean']>;
-  withChars?: InputMaybe<Array<Scalars['String']>>;
-  withSubTypes?: InputMaybe<Array<Scalars['String']>>;
+type GqlCvVerseElementTokensArgs = {
+  includeContext: InputMaybe<Scalars['Boolean']>;
+  withChars: InputMaybe<Array<Scalars['String']>>;
+  withSubTypes: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Information about a verse in the chapter, which may be split into several pieces */
-type CvVerses = {
+type GqlCvVerses = {
   __typename?: 'cvVerses';
   /** The pieces of verse */
-  verse?: Maybe<Array<Maybe<CvVerseElement>>>;
+  verse: Maybe<Array<Maybe<GqlCvVerseElement>>>;
 };
 
 /** Type-dependent parts of the ID header */
-type IdParts = {
+type GqlIdParts = {
   __typename?: 'idParts';
   /** A part of the ID, by index */
-  part?: Maybe<Scalars['String']>;
+  part: Maybe<Scalars['String']>;
   /** An array of parts of the ID */
-  parts?: Maybe<Array<Maybe<Scalars['String']>>>;
+  parts: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The type of the ID */
-  type?: Maybe<Scalars['String']>;
+  type: Maybe<Scalars['String']>;
 };
 
 
 /** Type-dependent parts of the ID header */
-type IdPartsPartArgs = {
+type GqlIdPartsPartArgs = {
   index: Scalars['Int'];
 };
 
 /** A specification to create or update a block */
-type InputBlockSpec = {
+type GqlInputBlockSpec = {
   /** The block grafts as items */
-  bg: Array<InputItemObject>;
+  bg: Array<GqlInputItemObject>;
   /** The block scope as an item */
-  bs: InputItemObject;
+  bs: GqlInputItemObject;
   /** The included scopes as items */
-  is: Array<InputItemObject>;
+  is: Array<GqlInputItemObject>;
   /** The items */
-  items: Array<InputItemObject>;
+  items: Array<GqlInputItemObject>;
   /** The open scopes as items */
-  os: Array<InputItemObject>;
+  os: Array<GqlInputItemObject>;
 };
 
 /** Input specification of a selector */
-type InputSelectorSpec = {
+type GqlInputSelectorSpec = {
   /** Enum of permitted string values */
-  enum?: InputMaybe<Array<Scalars['String']>>;
+  enum: InputMaybe<Array<Scalars['String']>>;
   /** Inclusive maximum value for integer selector */
-  max?: InputMaybe<Scalars['String']>;
+  max: InputMaybe<Scalars['String']>;
   /** Inclusive minimum value for integer selector */
-  min?: InputMaybe<Scalars['String']>;
+  min: InputMaybe<Scalars['String']>;
   /** Name (ie the key) */
   name: Scalars['String'];
   /** Regex for validating string selector */
-  regex?: InputMaybe<Scalars['String']>;
+  regex: InputMaybe<Scalars['String']>;
   /** Data type (string or integer) */
   type: Scalars['String'];
 };
 
 /** Key/Items tuple */
-type KvEntry = {
+type GqlKvEntry = {
   __typename?: 'kvEntry';
   /** The fields as itemGroups */
-  itemGroups: Array<Maybe<ItemGroup>>;
+  itemGroups: Array<Maybe<GqlItemGroup>>;
   /** The key */
   key: Scalars['String'];
   /** The secondary keys */
-  secondaryKeys?: Maybe<Array<KeyValue>>;
+  secondaryKeys: Maybe<Array<GqlKeyValue>>;
 };
 
 /** A contiguous flow of content for key-values */
-type KvSequence = {
+type GqlKvSequence = {
   __typename?: 'kvSequence';
   /** The entries in the key-value sequence */
-  entries?: Maybe<Array<KvEntry>>;
+  entries: Maybe<Array<GqlKvEntry>>;
   /** Whether or not the sequence has the specified tag */
   hasTag: Scalars['Boolean'];
   /** The id of the sequence */
@@ -1090,58 +1090,58 @@ type KvSequence = {
   /** A list of the tags of this sequence */
   tags: Array<Scalars['String']>;
   /** A list of the tags of this sequence as key/value tuples */
-  tagsKv: Array<KeyValue>;
+  tagsKv: Array<GqlKeyValue>;
 };
 
 
 /** A contiguous flow of content for key-values */
-type KvSequenceEntriesArgs = {
-  contentEquals?: InputMaybe<Array<KeyValues>>;
-  contentMatches?: InputMaybe<Array<KeyMatches>>;
-  keyEquals?: InputMaybe<Array<Scalars['String']>>;
-  keyMatches?: InputMaybe<Scalars['String']>;
-  secondaryEquals?: InputMaybe<Array<KeyValues>>;
-  secondaryMatches?: InputMaybe<Array<KeyMatches>>;
+type GqlKvSequenceEntriesArgs = {
+  contentEquals: InputMaybe<Array<GqlKeyValues>>;
+  contentMatches: InputMaybe<Array<GqlKeyMatches>>;
+  keyEquals: InputMaybe<Array<Scalars['String']>>;
+  keyMatches: InputMaybe<Scalars['String']>;
+  secondaryEquals: InputMaybe<Array<GqlKeyValues>>;
+  secondaryMatches: InputMaybe<Array<GqlKeyMatches>>;
 };
 
 
 /** A contiguous flow of content for key-values */
-type KvSequenceHasTagArgs = {
-  tagName?: InputMaybe<Scalars['String']>;
+type GqlKvSequenceHasTagArgs = {
+  tagName: InputMaybe<Scalars['String']>;
 };
 
 /** A tree node */
-type Node = {
+type GqlNode = {
   __typename?: 'node';
   /** The node children ids */
   childIds: Array<Scalars['String']>;
   /** The node id */
   id: Scalars['String'];
   /** The content as itemGroups */
-  itemGroups: Array<ItemGroup>;
+  itemGroups: Array<GqlItemGroup>;
   /** The keys for content */
   keys: Array<Scalars['String']>;
   /** The node parent id */
-  parentId?: Maybe<Scalars['String']>;
+  parentId: Maybe<Scalars['String']>;
 };
 
 
 /** A tree node */
-type NodeItemGroupsArgs = {
-  includeContext?: InputMaybe<Scalars['Boolean']>;
+type GqlNodeItemGroupsArgs = {
+  includeContext: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Mapped verse information */
-type Orig = {
+type GqlOrig = {
   __typename?: 'orig';
   /** The book code */
-  book?: Maybe<Scalars['String']>;
+  book: Maybe<Scalars['String']>;
   /** A list of chapter-verse references */
-  cvs: Array<Cv>;
+  cvs: Array<GqlCv>;
 };
 
 /** Information about a regex match on an enum */
-type RegexIndex = {
+type GqlRegexIndex = {
   __typename?: 'regexIndex';
   /** The index in the enum */
   index: Scalars['String'];
@@ -1150,7 +1150,7 @@ type RegexIndex = {
 };
 
 /** Row Equals Specification */
-type RowEqualsSpec = {
+type GqlRowEqualsSpec = {
   /** The position of the column in which to search a match */
   colN: Scalars['Int'];
   /** The values to match */
@@ -1158,7 +1158,7 @@ type RowEqualsSpec = {
 };
 
 /** Row Match Specification */
-type RowMatchSpec = {
+type GqlRowMatchSpec = {
   /** The position of the column in which to search a match */
   colN: Scalars['Int'];
   /** The regex to match */
@@ -1166,27 +1166,27 @@ type RowMatchSpec = {
 };
 
 /** Specification of a selector */
-type SelectorSpec = {
+type GqlSelectorSpec = {
   __typename?: 'selectorSpec';
   /** Enum of permitted string values */
-  enum?: Maybe<Array<Scalars['String']>>;
+  enum: Maybe<Array<Scalars['String']>>;
   /** Inclusive maximum value for integer selector */
-  max?: Maybe<Scalars['String']>;
+  max: Maybe<Scalars['String']>;
   /** Inclusive minimum value for integer selector */
-  min?: Maybe<Scalars['String']>;
+  min: Maybe<Scalars['String']>;
   /** Name (ie the key) */
   name: Scalars['String'];
   /** Regex for validating string selector */
-  regex?: Maybe<Scalars['String']>;
+  regex: Maybe<Scalars['String']>;
   /** Data type (string or integer) */
   type: Scalars['String'];
 };
 
 /** A contiguous flow of content for a table */
-type TableSequence = {
+type GqlTableSequence = {
   __typename?: 'tableSequence';
   /** The cells in the table sequence */
-  cells: Array<Cell>;
+  cells: Array<GqlCell>;
   /** Whether or not the sequence has the specified tag */
   hasTag: Scalars['Boolean'];
   /** A list of column headings for this tableSequence, derived from the sequence tags */
@@ -1200,30 +1200,30 @@ type TableSequence = {
   /** The number of rows in the table sequence */
   nRows: Scalars['Int'];
   /** The rows in the table sequence */
-  rows: Array<Array<Cell>>;
+  rows: Array<Array<GqlCell>>;
   /** A list of the tags of this sequence */
   tags: Array<Scalars['String']>;
   /** A list of the tags of this sequence as key/value tuples */
-  tagsKv: Array<KeyValue>;
+  tagsKv: Array<GqlKeyValue>;
 };
 
 
 /** A contiguous flow of content for a table */
-type TableSequenceHasTagArgs = {
-  tagName?: InputMaybe<Scalars['String']>;
+type GqlTableSequenceHasTagArgs = {
+  tagName: InputMaybe<Scalars['String']>;
 };
 
 
 /** A contiguous flow of content for a table */
-type TableSequenceRowsArgs = {
-  columns?: InputMaybe<Array<Scalars['Int']>>;
-  equals?: InputMaybe<Array<RowEqualsSpec>>;
-  matches?: InputMaybe<Array<RowMatchSpec>>;
-  positions?: InputMaybe<Array<Scalars['Int']>>;
+type GqlTableSequenceRowsArgs = {
+  columns: InputMaybe<Array<Scalars['Int']>>;
+  equals: InputMaybe<Array<GqlRowEqualsSpec>>;
+  matches: InputMaybe<Array<GqlRowMatchSpec>>;
+  positions: InputMaybe<Array<Scalars['Int']>>;
 };
 
 /** The nodes of a tree */
-type TreeSequence = {
+type GqlTreeSequence = {
   __typename?: 'treeSequence';
   /** Whether or not the sequence has the specified tag */
   hasTag: Scalars['Boolean'];
@@ -1232,11 +1232,11 @@ type TreeSequence = {
   /** The number of nodes in the tree sequence */
   nNodes: Scalars['Int'];
   /** The nodes in the tree sequence */
-  nodes: Array<Node>;
+  nodes: Array<GqlNode>;
   /** A list of the tags of this sequence */
   tags: Array<Scalars['String']>;
   /** A list of the tags of this sequence as key/value tuples */
-  tagsKv: Array<KeyValue>;
+  tagsKv: Array<GqlKeyValue>;
   /** The JSON results for the Tribos queries, as an array of strings */
   triboi: Array<Scalars['String']>;
   /** The JSON result for a Tribos query, as a string */
@@ -1247,35 +1247,35 @@ type TreeSequence = {
 
 
 /** The nodes of a tree */
-type TreeSequenceHasTagArgs = {
-  tagName?: InputMaybe<Scalars['String']>;
+type GqlTreeSequenceHasTagArgs = {
+  tagName: InputMaybe<Scalars['String']>;
 };
 
 
 /** The nodes of a tree */
-type TreeSequenceTriboiArgs = {
+type GqlTreeSequenceTriboiArgs = {
   queries: Array<Scalars['String']>;
 };
 
 
 /** The nodes of a tree */
-type TreeSequenceTribosArgs = {
+type GqlTreeSequenceTribosArgs = {
   query: Scalars['String'];
 };
 
 /** Information about a verse number (which may be part of a verse range) */
-type VerseNumber = {
+type GqlVerseNumber = {
   __typename?: 'verseNumber';
   /** The verse number */
   number: Scalars['Int'];
   /** The reference for this verse when mapped to 'original' versification */
-  orig: Orig;
+  orig: GqlOrig;
   /** The verse range to which the verse number belongs */
   range: Scalars['String'];
 };
 
 /** Information about a verse range (which may only cover one verse) */
-type VerseRange = {
+type GqlVerseRange = {
   __typename?: 'verseRange';
   /** A list of verse numbers for this range */
   numbers: Array<Scalars['Int']>;

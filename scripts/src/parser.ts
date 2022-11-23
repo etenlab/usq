@@ -3,9 +3,12 @@ import { readFileSync } from 'fs';
 
 const pk = new Proskomma();
 
+export type ItemType = 'graft' | 'scope' | 'token';
+export type ItemSubtype = string;
+
 export interface IItem {
-  type: 'graft' | 'scope' | 'token',
-  subType: string,
+  type: ItemType,
+  subType: ItemSubtype,
   payload: string
 }
 
@@ -32,44 +35,49 @@ function normalizeMaybeArray<T>(arr: Maybe<Array<T>>): T[] {
   return arr ? arr : [];
 }
 
-function normalizeMabyeArrayOfMaybes<T>(arr: Maybe<Array<Maybe<T>>>): T[] {
+function normalizeMaybeArrayOfMaybes<T>(arr: Maybe<Array<Maybe<T>>>): T[] {
   return normalizeArrayOfMaybes(normalizeMaybeArray(arr));
 }
 
-function normalizeItem(item: Item): IItem {
+function normalizeItem(item: GqlItem): IItem {
   return {
-    type: item.type,
+    type: (item.type as ItemType),
     subType: item.subType,
     payload: item.payload
   };
 }
 
-function normalizeVerse(verse: CvVerses): IVerse {
-  // Not sure why graphql-code-generator spits out this type like
-  // this, when CvVerses only contain one verse element. This does the
-  // type punning needed for TS to not complain.
-  const el: CvVerseElement = verse as any as CvVerseElement;
-  return {
-    items: normalizeArrayOfMaybes(el.items).map(normalizeItem),
-    verseNumber: el.verseRange || ""
-  };
+function normalizeVerse(verse: GqlCvVerses): IVerse | null {
+  if (verse.verse) {
+    const el = normalizeMaybeArrayOfMaybes(verse.verse)[0];
+    if (el) {
+    return {
+      items: normalizeArrayOfMaybes(el.items).map(normalizeItem),
+      verseNumber: el.verseRange || ""
+    };
+    }
+  }
+
+  return null
 }
 
-function normalizeChapter(chapter: CvIndex): IChapter {
+function normalizeChapter(chapter: GqlCvIndex): IChapter {
   return {
     chapterNumber: chapter.chapter,
-    verses: normalizeMabyeArrayOfMaybes(chapter.verses || []).map(normalizeVerse)
+    verses: normalizeMaybeArrayOfMaybes(chapter.verses || [])
+      .map(normalizeVerse)
+      .filter((verse): verse is IVerse => verse !== null)
   }
 }
 
-function normalizeDocument(doc: { header:string, cvIndexes: Array<Maybe<CvIndex>> }): IDocument {
+function normalizeDocument(doc: GqlDocument): IDocument {
   return {
-    title: doc.header,
+    title: doc.header || "",
     chapters: normalizeArrayOfMaybes(doc.cvIndexes).map(normalizeChapter)
   }
 }
 
-function getDocument(): Promise<IDocument> {
+async function getDocument(): Promise<IDocument> {
   const query = `
 {
 documents {
@@ -93,10 +101,7 @@ chapter
 
   interface IReturn {
     data: {
-      documents: {
-        header: string,
-        cvIndexes: Array<Maybe<CvIndex>>
-      }[]
+      documents: GqlDocument[]
     }
   };
 
@@ -105,7 +110,7 @@ chapter
   })
 }
 
-export default function parseFile(filename: string): Promise<IDocument> {
+export default async function parseFile(filename: string): Promise<IDocument> {
   const content = readFileSync(filename, 'utf8');
 
   pk.importDocument(

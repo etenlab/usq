@@ -1,8 +1,6 @@
 import { Client, Pool, PoolClient } from 'pg';
-import { IDocument, IVerse, IChapter, IItem } from './parser';
+import { IDocument, IVerse, IChapter } from './parser';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
-
-import options from './options';
 
 export interface ICollectionParameters {
   languageIndex: string;
@@ -16,18 +14,6 @@ export interface IInsertParameters extends ICollectionParameters {
   word: string;
   wordNumber: number;
   meta: object;
-}
-
-const WORD_REGEX = options.regexes.word;
-const TOKEN_REGEX = options.regexes.token;
-
-function tokenize(ws: string) {
-  const arr = ws.match(TOKEN_REGEX);
-  return arr ? arr : [];
-}
-
-function isPunctuation(word: string) {
-  return !word.match(WORD_REGEX);
 }
 
 function parsedFileToChapters(data: IDocument): IChapter[] {

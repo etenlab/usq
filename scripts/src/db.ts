@@ -39,17 +39,58 @@ interface IContent {
   word: string,
   meta: object
 };
+
+type ScopePayload = object | string;
+type Scope = ScopePayload[];
+
+function scopePayloadToObject(payload: string): ScopePayload {
+  function assocIn(kvs: string[]): object | string {
+    if(kvs.length === 1) {
+      return kvs[0];
+    }
+
+    return {[kvs[0]]: assocIn(kvs.slice(1))};
+  }
+
+  return assocIn(payload.split('/'));
+}
+
+function scopeToMeta(scope: Scope): object {
+  return scope.reduce((acc: object, el) => {
+    if (typeof el === 'object') {
+      return {...acc, ...(el as object)};
+    } else {
+      return acc;
+    }
+  }, {});
+}
+
 function versesToItems(verses: VerseWithChapterNumber[]): IContent[] {
   return verses.flatMap(verse => {
     const { verseNumber, chapterNumber } = verse;
+    let content = [] as IContent[];
+    let wordNumber = 0;
+    let scope = [] as Scope;
 
-    return verse.items.map((item, wordNumber) => ({
-      word: item.payload,
-      meta: {},
-      verseNumber: parseInt(verseNumber),
-      chapterNumber,
-      wordNumber
-    }));
+    for (const item of verse.items) {
+      if (item.type === 'scope' && item.subType === 'start') {
+        const d = scopePayloadToObject(item.payload);
+        scope = [d, ...scope];
+      } else if (item.type === 'scope' && item.subType === 'end') {
+        scope = scope.slice(1);
+      } else if (item.type = 'token') {
+        const d = {
+          word: item.payload,
+          meta: {...scopeToMeta(scope), proskommaData: item},
+          verseNumber: parseInt(verseNumber),
+          chapterNumber,
+          wordNumber: ++wordNumber
+        };
+        content = [...content, d];
+      }
+    }
+
+    return content;
   });
 }
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Pool, PoolClient } from 'pg';
+import { SingleBar } from 'cli-progress';
 
 import { getInsertParameters, insertWord } from './db';
 import parseFile from './parser';
@@ -17,13 +18,15 @@ async function ingestFile(client: PoolClient, path: string) {
   const total = inserts.length;
   let completed = 0;
 
-  const spinner = ['\\', '|', '/', '-'];
-  let spinnerIdx = 0;
+  const bar = new SingleBar({
+    format: 'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}'
+  });
+
+  bar.start(total, 0);
   for (const params of inserts) {
-    process.stdout.write(`\r[${++completed}/${total}] ${spinner[(spinnerIdx++) % spinner.length]} ${params.word}`);
     await insertWord(client, params);
+    bar.increment();
   }
-  process.stdout.write('\n');
 
 }
 

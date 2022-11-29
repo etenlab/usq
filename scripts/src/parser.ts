@@ -4,7 +4,12 @@ import { readFileSync } from 'fs';
 const pk = new Proskomma();
 
 export type ItemType = 'graft' | 'scope' | 'token';
-export type ItemSubtype = string;
+export type ItemSubtype =
+  // scope
+  'start' | 'end' |
+  // token
+  'title' | 'heading' | 'wordLike' |
+  'lineSpace' | 'punctuation' | 'eol' | 'footnote';
 
 export interface IItem {
   type: ItemType,
@@ -42,7 +47,7 @@ function normalizeMaybeArrayOfMaybes<T>(arr: Maybe<Array<Maybe<T>>>): T[] {
 function normalizeItem(item: GqlItem): IItem {
   return {
     type: (item.type as ItemType),
-    subType: item.subType,
+    subType: item.subType as ItemSubtype,
     payload: item.payload
   };
 }

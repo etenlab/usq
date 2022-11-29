@@ -1,5 +1,5 @@
 import { Client, Pool, PoolClient } from 'pg';
-import { IDocument, IVerse, IChapter } from './parser';
+import { IDocument, IVerse, IChapter, ItemSubtype } from './parser';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
 
 export interface ICollectionParameters {
@@ -65,6 +65,8 @@ function scopeToMeta(scope: Scope): object {
   }, {});
 }
 
+const RELEVANT_TOKEN_SUBTYPES: ItemSubtype[] =
+  ['wordLike', 'lineSpace', 'punctuation', 'eol'];
 function versesToItems(verses: VerseWithChapterNumber[]): IContent[] {
   return verses.flatMap(verse => {
     const { verseNumber, chapterNumber } = verse;
@@ -78,7 +80,7 @@ function versesToItems(verses: VerseWithChapterNumber[]): IContent[] {
         scope = [d, ...scope];
       } else if (item.type === 'scope' && item.subType === 'end') {
         scope = scope.slice(1);
-      } else if (item.type = 'token') {
+      } else if (item.type === 'token' && RELEVANT_TOKEN_SUBTYPES.includes(item.subType)) {
         const d = {
           word: item.payload,
           meta: {...scopeToMeta(scope), proskommaData: item},
@@ -95,6 +97,7 @@ function versesToItems(verses: VerseWithChapterNumber[]): IContent[] {
 }
 
 export function getInsertParameters(collection: ICollectionParameters, data: IDocument): IInsertParameters[] {
+  debugger
   const { languageIndex, languageId, collectionName } = collection;
   const bookName = data.title;
 

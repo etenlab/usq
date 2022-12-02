@@ -23,6 +23,8 @@ node index.js
    this project:
 
 ```sh
+cd scripts
+npm install # or yarn install
 npm run codegen
 ```
 

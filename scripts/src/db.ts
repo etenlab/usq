@@ -1,8 +1,6 @@
 import { Client, Pool, PoolClient } from 'pg';
-import { IUSFMParsedObject, IVerse, IChapter, OtherElement } from 'usfm-grammar';
+import { IDocument, IVerse, IChapter, ItemSubtype } from './parser';
 import { INSERT_QUERY_TEMPLATE } from './query.template';
-
-import options from './options';
 
 export interface ICollectionParameters {
   languageIndex: string;
@@ -18,137 +16,94 @@ export interface IInsertParameters extends ICollectionParameters {
   meta: object;
 }
 
-const WORD_REGEX = options.regexes.word;
-const TOKEN_REGEX = options.regexes.token;
-
-function tokenize(ws: string) {
-  const arr = ws.match(TOKEN_REGEX);
-  return arr ? arr : [];
-}
-
-function isPunctuation(word: string) {
-  return !word.match(WORD_REGEX);
-}
-
-function parsedFileToChapters(data: IUSFMParsedObject): IChapter[] {
+function parsedFileToChapters(data: IDocument): IChapter[] {
   return data.chapters;
 }
 
-function chaptersToVerses(chapters: IChapter[]): (IVerse & { chapterNumber: number })[] {
+type VerseWithChapterNumber = IVerse & { chapterNumber: number };
+function chaptersToVerses(chapters: IChapter[]): VerseWithChapterNumber[] {
   return chapters.flatMap(chapter => {
-    const { chapterNumber, contents } = chapter;
+    const { chapterNumber } = chapter;
 
-    return contents.filter(content => {
-      return content
-        && typeof content === 'object'
-        && 'verseNumber' in content;
-    })
-      .map(content => content as IVerse)
-      .map(verse => {
-        return {
-          ...verse,
-          chapterNumber
-        }
-      });
+    return chapter.verses.map(v => ({
+      ...v,
+      chapterNumber
+    }));
   });
 }
 
-interface IMeta {
-  type: string
-}
+interface IContent {
+  chapterNumber: number,
+  verseNumber: number,
+  wordNumber: number
+  word: string,
+  meta: object
+};
 
-interface INormalContent {
-  word: string;
-  meta: IMeta
-}
-function normalizeString(word: string, meta: IMeta = { type: "word" }): INormalContent {
+type ScopePayload = object | string;
+type Scope = ScopePayload[];
 
-  if (isPunctuation(word)) {
-    return {
-      word,
-      meta: {
-        type: "punctuation"
-      }
-    };
-  } else {
-    return {
-      word,
-      meta: meta
-    };
+function scopePayloadToObject(payload: string): ScopePayload {
+  function assocIn(kvs: string[]): object | string {
+    if(kvs.length === 1) {
+      return kvs[0];
+    }
+
+    return {[kvs[0]]: assocIn(kvs.slice(1))};
   }
 
+  return assocIn(payload.split('/'));
 }
 
-function normalizeContent(content: OtherElement, meta?: IMeta): INormalContent[] {
-  if (content === null) {
-
-    return [] as INormalContent[];
-
-  } else if (typeof content === 'string') {
-
-    return tokenize(content).map((w) => normalizeString(w, meta));
-
-  } else if (typeof content === 'object' && 'items' in content) {
-
-    const o: { items: OtherElement[] } = content as any;
-    return o.items.flatMap((i) => normalizeContent(i));
-
-  } else if (typeof content === 'object' && 'w' in content) {
-
-    const o: { w: string[], attributes: object[] } = content as any;
-
-    return o.w.flatMap(ws => {
-      const meta: IMeta = {
-        type: "word",
-        ...o.attributes.reduce((acc, o) => ({ ...acc, ...o }), {})
-      };
-
-      return normalizeContent(ws, meta);
-    });
-
-  } else if (typeof content === 'object' && 'add' in content) {
-
-    const o: { add: string[] } = content as any;
-
-    return o.add.flatMap(ws => {
-      const meta: IMeta = {
-        type: "addition"
-      };
-
-      return normalizeContent(ws, meta);
-
-    });
-  }
-
-  return [] as INormalContent[];
+function scopeToMeta(scope: Scope): object {
+  return scope.reduce((acc: object, el) => {
+    if (typeof el === 'object') {
+      return {...acc, ...(el as object)};
+    } else {
+      return acc;
+    }
+  }, {});
 }
 
-function versesToContents(verses: (IVerse & { chapterNumber: number })[]): (INormalContent & { verseNumber: number, chapterNumber: number })[] {
+const RELEVANT_TOKEN_SUBTYPES: ItemSubtype[] =
+  ['wordLike', 'lineSpace', 'punctuation', 'eol'];
+function versesToItems(verses: VerseWithChapterNumber[]): IContent[] {
   return verses.flatMap(verse => {
     const { verseNumber, chapterNumber } = verse;
+    let content = [] as IContent[];
+    let wordNumber = 0;
+    let scope = [] as Scope;
 
-    if (verse.contents) {
-      return verse.contents.flatMap((v) => normalizeContent(v))
-        .map((normalContent: INormalContent) => {
-          return {
-            ...normalContent,
-            verseNumber: parseInt(verseNumber),
-            chapterNumber
-          }
-        });
-    } else {
-      return [];
+    for (const item of verse.items) {
+      if (item.type === 'scope' && item.subType === 'start') {
+        const d = scopePayloadToObject(item.payload);
+        scope = [d, ...scope];
+      } else if (item.type === 'scope' && item.subType === 'end') {
+        scope = scope.slice(1);
+      } else if (item.type === 'token' && RELEVANT_TOKEN_SUBTYPES.includes(item.subType)) {
+        const d = {
+          word: item.payload,
+          meta: {...scopeToMeta(scope), proskommaData: item},
+          verseNumber: parseInt(verseNumber),
+          chapterNumber,
+          wordNumber: ++wordNumber
+        };
+        content = [...content, d];
+      }
     }
+
+    return content;
   });
 }
 
-export function getInsertParameters(collection: ICollectionParameters, data: IUSFMParsedObject): IInsertParameters[] {
+export function getInsertParameters(collection: ICollectionParameters, data: IDocument): IInsertParameters[] {
+  debugger
   const { languageIndex, languageId, collectionName } = collection;
-  const bookName = data.book.bookCode;
+  const bookName = data.title;
 
   const chapters = parsedFileToChapters(data);
   const verses = chaptersToVerses(chapters);
-  const contents = versesToContents(verses);
+  const contents = versesToItems(verses);
 
   return contents.map((content, wordNumber) => {
     return {
